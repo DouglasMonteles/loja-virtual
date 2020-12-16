@@ -1,29 +1,28 @@
 package com.cursospring.lojavirtual.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursospring.lojavirtual.domain.Categoria;
+import com.cursospring.lojavirtual.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-	@GetMapping
-	public List<Categoria> listar() {
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Eletrônico");
-		
-		List<Categoria> categorias = new ArrayList<Categoria>();
-		
-		categorias.add(cat1);
-		categorias.add(cat2);
-		
-		return categorias;
+	private CategoriaService service;
+	
+	public CategoriaResource(CategoriaService service) {
+		this.service = service;
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
+		Categoria categoria = service.findById(id);
+		return ResponseEntity.ok().body(categoria);
 	}
 	
 }
