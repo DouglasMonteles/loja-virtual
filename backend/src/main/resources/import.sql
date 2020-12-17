@@ -26,3 +26,24 @@ INSERT INTO tb_endereco (bairro, cep, complemento, logradouro, numero, cidade_id
 INSERT INTO tb_telefones (cliente_id, telefones) VALUES (1, '98991295331');
 INSERT INTO tb_telefones (cliente_id, telefones) VALUES (1, '6181241849');
 
+INSERT INTO tb_pedido (instante, cliente_id, endereco_de_entrega_id) VALUES (now(), 1, 1);
+
+INSERT INTO tb_pagamento (pedido_id, estado) VALUES (1, 1);
+
+INSERT INTO tb_pagamento_com_cartao (numero_de_parcelas, pedido_id) VALUES (5, 1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
