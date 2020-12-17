@@ -23,5 +23,6 @@ INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569
 
 INSERT INTO tb_endereco (bairro, cep, complemento, logradouro, numero, cidade_id, cliente_id) VALUES ('Areinha', '65032542', 'Próximo a Igreja', '3ª Rua Nossa Senhora da Aparecida', '100', 1, 1);
 
-
+INSERT INTO tb_telefones (cliente_id, telefones) VALUES (1, '98991295331');
+INSERT INTO tb_telefones (cliente_id, telefones) VALUES (1, '6181241849');
 
