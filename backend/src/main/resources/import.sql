@@ -12,3 +12,12 @@ INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (1, 1);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (2, 3);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (3, 2);
+
+INSERT INTO tb_estado (nome) VALUES ('Distrito Federal');
+INSERT INTO tb_estado (nome) VALUES ('Maranhão');
+
+INSERT INTO tb_cidade (nome, estado_id) VALUES ('Brasília', 1);
+INSERT INTO tb_cidade (nome, estado_id) VALUES ('São Luís', 2);
+
+
+
