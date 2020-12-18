@@ -3,6 +3,8 @@ package com.cursospring.lojavirtual.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.cursospring.lojavirtual.domain.Categoria;
+import com.cursospring.lojavirtual.dto.CategoriaDTO;
 import com.cursospring.lojavirtual.repositories.CategoriaRepository;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
@@ -57,6 +60,10 @@ public class CategoriaService {
 	public Page<Categoria> findAllPageable(int page, int linesPerPage, String orderBy, String direction) {
 		PageRequest categoriasPaginada = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repository.findAll(categoriasPaginada);
+	}
+
+	public Categoria fromDTO(@Valid CategoriaDTO categoriaDTO) {
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 	
 }
