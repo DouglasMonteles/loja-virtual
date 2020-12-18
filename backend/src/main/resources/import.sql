@@ -32,7 +32,7 @@ INSERT INTO tb_pagamento (pedido_id, estado) VALUES (1, 1);
 
 INSERT INTO tb_pagamento_com_cartao (numero_de_parcelas, pedido_id) VALUES (5, 1);
 
-
+INSERT INTO tb_item_pedido (desconto, preco, quantidade, produto_id, pedido_id) VALUES (10.00, 300.00, 2, 1, 1);
 
 
 
