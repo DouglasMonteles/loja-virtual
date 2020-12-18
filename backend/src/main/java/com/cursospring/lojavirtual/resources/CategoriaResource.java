@@ -1,6 +1,8 @@
 package com.cursospring.lojavirtual.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cursospring.lojavirtual.domain.Categoria;
+import com.cursospring.lojavirtual.dto.CategoriaDTO;
 import com.cursospring.lojavirtual.services.CategoriaService;
 
 @RestController
@@ -24,6 +27,17 @@ public class CategoriaResource {
 	
 	public CategoriaResource(CategoriaService service) {
 		this.service = service;
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> categorias = service.findAll();
+		List<CategoriaDTO> categoriasDTO = categorias
+				.stream()
+				.map(categoria -> new CategoriaDTO(categoria))
+				.collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(categoriasDTO);
 	}
 	
 	@GetMapping(value = "/{id}")
