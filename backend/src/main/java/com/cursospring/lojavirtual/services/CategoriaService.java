@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.cursospring.lojavirtual.domain.Categoria;
@@ -49,6 +52,11 @@ public class CategoriaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir esta categoria, pois existem produtos relacionados a ela");
 		}
+	}
+	
+	public Page<Categoria> findAllPageable(int page, int linesPerPage, String orderBy, String direction) {
+		PageRequest categoriasPaginada = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.findAll(categoriasPaginada);
 	}
 	
 }

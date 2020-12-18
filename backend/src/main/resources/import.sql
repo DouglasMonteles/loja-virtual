@@ -3,6 +3,10 @@
 INSERT INTO tb_categoria (nome) VALUES ('Informática');
 INSERT INTO tb_categoria (nome) VALUES ('Eletrônicos');
 INSERT INTO tb_categoria (nome) VALUES ('Limpeza');
+INSERT INTO tb_categoria (nome) VALUES ('Cama, Mesa e Banho');
+INSERT INTO tb_categoria (nome) VALUES ('Móveis');
+INSERT INTO tb_categoria (nome) VALUES ('Celulares');
+INSERT INTO tb_categoria (nome) VALUES ('Moda');
 
 INSERT INTO tb_produto (nome, preco) VALUES ('Computador', 2000.00);
 INSERT INTO tb_produto (nome, preco) VALUES ('Máquina de Lavar', 600.00);
