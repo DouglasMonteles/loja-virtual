@@ -2,26 +2,55 @@ package com.cursospring.lojavirtual.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.cursospring.lojavirtual.services.validation.ClienteCadastro;
+
+@ClienteCadastro
 public class ClienteCadastroDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	// Dados da Entidade Cliente
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 80, message = "O nome deve ter entre 5 e 80 caracteres")
 	private String nome;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpfOuCnpj;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 10, message = "A senha deve ter entre 5 e 10 caracteres")
 	private String senha;
+	
 	private Integer tipo;
 	
 	// Dados da Entidade Endereco
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String numero;
+	
 	private String complemento;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String bairro;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cep;
 	
 	// Dados da Entidade Telefones
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
 	
