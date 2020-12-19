@@ -1,11 +1,20 @@
 package com.cursospring.lojavirtual.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.cursospring.lojavirtual.domain.Cliente;
+import com.cursospring.lojavirtual.dto.ClienteDTO;
 import com.cursospring.lojavirtual.repositories.ClienteRepository;
+import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -17,11 +26,43 @@ public class ClienteService {
 		this.repository = repository;
 	}
 	
+	public List<Cliente> findAll() {
+		return repository.findAll();
+	}
+	
 	public Cliente findById(long id) {
 		Optional<Cliente> cliente = repository.findById(id);
 		return cliente.orElseThrow(
 				() -> new ObjectNotFoundException("Cliente não encontrado! Id informado: " + id)
 			);
+	}
+	
+	public Cliente update(Cliente cliente) {
+		Cliente clienteAtualizado = findById(cliente.getId());
+		
+		clienteAtualizado.setNome(cliente.getNome());
+		clienteAtualizado.setEmail(cliente.getEmail());
+		
+		return repository.save(clienteAtualizado);
+	}
+	
+	public void delete(long id) {
+		findById(id);
+		
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir este cliente, pois há entidades relacionadas a ele");
+		}
+	}
+	
+	public Page<Cliente> findAllPageable(int page, int linesPerPage, String direction, String orderBy) {
+		PageRequest clientesPaginados = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.findAll(clientesPaginados);
+	}
+
+	public Cliente fromDTO(@Valid ClienteDTO clienteDTO) {
+		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null, null);
 	}
 	
 }

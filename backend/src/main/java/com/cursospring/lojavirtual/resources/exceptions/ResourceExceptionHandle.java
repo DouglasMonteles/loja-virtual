@@ -29,13 +29,13 @@ public class ResourceExceptionHandle {
 	
 	@ExceptionHandler(NumberFormatException.class)
 	public ResponseEntity<StandardError> numberFormat(NumberFormatException e, HttpServletRequest request) {
-		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), "Erro na formatação do parâmetro", System.currentTimeMillis());
+		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), "Erro na conversão do parâmetro", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
-		ValidationError errors = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Bad Request", System.currentTimeMillis());
+		ValidationError errors = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Há alguns campos com erro", System.currentTimeMillis());
 		
 		for (FieldError error : e.getBindingResult().getFieldErrors()) {
 			errors.setErrors(error.getField(), error.getDefaultMessage());
