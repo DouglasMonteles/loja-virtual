@@ -42,8 +42,11 @@ public class CategoriaService {
 		return repository.save(categoria);
 	}
 	
-	public Categoria update(Categoria categoriaAtualizada) {
-		findById(categoriaAtualizada.getId());
+	public Categoria update(Categoria categoria) {
+		Categoria categoriaAtualizada = findById(categoria.getId());
+		
+		categoriaAtualizada.setNome(categoria.getNome());
+		
 		return repository.save(categoriaAtualizada);
 	}
 	
