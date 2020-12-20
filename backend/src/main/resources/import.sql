@@ -11,11 +11,22 @@ INSERT INTO tb_categoria (nome) VALUES ('Moda');
 INSERT INTO tb_produto (nome, preco) VALUES ('Computador', 2000.00);
 INSERT INTO tb_produto (nome, preco) VALUES ('Máquina de Lavar', 600.00);
 INSERT INTO tb_produto (nome, preco) VALUES ('Rádio Portátil', 200.00);
+INSERT INTO tb_produto (nome, preco) VALUES ('Mesa de escritório', 300.00);
+INSERT INTO tb_produto (nome, preco) VALUES ('Toalha', 50.00);
+INSERT INTO tb_produto (nome, preco) VALUES ('Colcha', 200.00);
+INSERT INTO tb_produto (nome, preco) VALUES ('TV true color', 1200.00);
+INSERT INTO tb_produto (nome, preco) VALUES ('Roçadeira', 800.00);
 
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (1, 1);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (1, 2);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (2, 3);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (3, 2);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (4, 5);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (5, 4);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (6, 4);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (7, 4);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (8, 2);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (9, 2);
 
 INSERT INTO tb_estado (nome) VALUES ('Distrito Federal');
 INSERT INTO tb_estado (nome) VALUES ('Maranhão');
