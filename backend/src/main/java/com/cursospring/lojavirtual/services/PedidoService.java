@@ -1,10 +1,16 @@
 package com.cursospring.lojavirtual.services;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.cursospring.lojavirtual.domain.ItemPedido;
+import com.cursospring.lojavirtual.domain.PagamentoComBoleto;
 import com.cursospring.lojavirtual.domain.Pedido;
+import com.cursospring.lojavirtual.enums.EstadoPagamento;
+import com.cursospring.lojavirtual.repositories.ItemPedidoRepository;
+import com.cursospring.lojavirtual.repositories.PagamentoRepository;
 import com.cursospring.lojavirtual.repositories.PedidoRepository;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
@@ -12,9 +18,18 @@ import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 public class PedidoService {
 
 	private PedidoRepository repository;
+	private BoletoService boletoService;
+	private PagamentoRepository pagamentoRepository;
+	private ItemPedidoRepository itemPedidoRepository;
+	private ProdutoService produtoService;
 	
-	public PedidoService(PedidoRepository repository) {
+	public PedidoService(PedidoRepository repository, BoletoService boletoService, 
+			PagamentoRepository pagamentoRepository, ItemPedidoRepository itemPedidoRepository, ProdutoService produtoService) {
 		this.repository = repository;
+		this.boletoService = boletoService;
+		this.pagamentoRepository = pagamentoRepository;
+		this.itemPedidoRepository = itemPedidoRepository;
+		this.produtoService = produtoService;
 	}
 	
 	public Pedido findById(long id) {
@@ -22,6 +37,31 @@ public class PedidoService {
 		return pedido.orElseThrow(
 				() -> new ObjectNotFoundException("Nenhum pedido foi encontrado com o Id: " + id)
 			);
+	}
+	
+	public Pedido insert(Pedido pedido) {
+		pedido.setId(null);
+		pedido.setInstante(new Date());
+		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+		pedido.getPagamento().setPedido(pedido);
+		
+		if (pedido.getPagamento() instanceof PagamentoComBoleto) {
+			PagamentoComBoleto boleto = (PagamentoComBoleto) pedido.getPagamento();
+			boletoService.preencherPagamentoComBoleto(boleto, pedido.getInstante());
+		}
+		
+		pedido = repository.save(pedido);
+		pagamentoRepository.save(pedido.getPagamento());
+		
+		for (ItemPedido item : pedido.getItens()) {
+			item.setDesconto(0.0);
+			item.setPreco(produtoService.findById(item.getProduto().getId()).getPreco());
+			item.setPedido(pedido);
+		}
+		
+		itemPedidoRepository.saveAll(pedido.getItens());
+		
+		return pedido;
 	}
 	
 }

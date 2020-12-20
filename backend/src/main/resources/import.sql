@@ -26,7 +26,6 @@ INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (5, 4);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (6, 4);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (7, 4);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (8, 2);
-INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (9, 2);
 
 INSERT INTO tb_estado (nome) VALUES ('Distrito Federal');
 INSERT INTO tb_estado (nome) VALUES ('Maranhão');
