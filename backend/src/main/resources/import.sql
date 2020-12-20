@@ -34,8 +34,8 @@ INSERT INTO tb_estado (nome) VALUES ('Maranhão');
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('Brasília', 1);
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('São Luís', 2);
 
-INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569094', 'teste@gmail.com', 'Douglas Silva', '123', 1);
-INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569094', 'teste@gmail.com', 'Teste', '123', 1);
+INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569094', 'teste1@gmail.com', 'Douglas Silva', '123', 1);
+INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('39333214097', 'teste2@gmail.com', 'Teste', '123', 1);
 
 INSERT INTO tb_endereco (bairro, cep, complemento, logradouro, numero, cidade_id, cliente_id) VALUES ('Areinha', '65032542', 'Próximo a Igreja', '3ª Rua Nossa Senhora da Aparecida', '100', 1, 1);
 
