@@ -1,9 +1,12 @@
 package com.cursospring.lojavirtual.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.cursospring.lojavirtual.services.EmailService;
+import com.cursospring.lojavirtual.services.SmtpEmailService;
 import com.sun.el.parser.ParseException;
 
 @Configuration
@@ -18,6 +21,11 @@ public class DevConfig {
 			return false;
 		
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 	
 }
