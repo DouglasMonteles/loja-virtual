@@ -35,8 +35,10 @@ public class Cliente implements Serializable {
 	private String email;
 	
 	private String cpfOuCnpj;
-	private String senha;
 	private Integer tipo;
+	
+	@JsonIgnore
+	private String senha;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")

@@ -6,10 +6,12 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cursospring.lojavirtual.domain.Cidade;
@@ -28,6 +30,9 @@ public class ClienteService {
 
 	private ClienteRepository repository;
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public ClienteService(ClienteRepository repository, EnderecoRepository enderecoRepository) {
 		this.repository = repository;
@@ -82,7 +87,7 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(@Valid ClienteCadastroDTO cadastro) {
-		Cliente cliente = new Cliente(null, cadastro.getNome(), cadastro.getEmail(), cadastro.getCpfOuCnpj(), cadastro.getSenha(), TipoCliente.toEnum(cadastro.getTipo()));
+		Cliente cliente = new Cliente(null, cadastro.getNome(), cadastro.getEmail(), cadastro.getCpfOuCnpj(), encoder.encode(cadastro.getSenha()), TipoCliente.toEnum(cadastro.getTipo()));
 		Cidade cidade = new Cidade(cadastro.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, cadastro.getLogradouro(), cadastro.getNumero(), cadastro.getComplemento(), cadastro.getBairro(), cadastro.getCep(), cliente, cidade);
 		
