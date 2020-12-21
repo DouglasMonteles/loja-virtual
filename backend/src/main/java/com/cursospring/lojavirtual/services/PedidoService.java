@@ -23,16 +23,18 @@ public class PedidoService {
 	private ItemPedidoRepository itemPedidoRepository;
 	private ProdutoService produtoService;
 	private ClienteService clienteService;
+	private EmailService emailService;
 	
 	public PedidoService(PedidoRepository repository, BoletoService boletoService, 
 			PagamentoRepository pagamentoRepository, ItemPedidoRepository itemPedidoRepository, 
-			ProdutoService produtoService, ClienteService clienteService) {
+			ProdutoService produtoService, ClienteService clienteService, EmailService emailService) {
 		this.repository = repository;
 		this.boletoService = boletoService;
 		this.pagamentoRepository = pagamentoRepository;
 		this.itemPedidoRepository = itemPedidoRepository;
 		this.produtoService = produtoService;
 		this.clienteService = clienteService;
+		this.emailService = emailService;
 	}
 	
 	public Pedido findById(long id) {
@@ -65,7 +67,8 @@ public class PedidoService {
 		}
 		
 		itemPedidoRepository.saveAll(pedido.getItens());
-		System.out.println(pedido);
+		//System.out.println(pedido);
+		emailService.sendOrderConfirmationEmail(pedido);
 		return pedido;
 	}
 	
