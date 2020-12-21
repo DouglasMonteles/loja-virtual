@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.cursospring.lojavirtual.enums.Perfil;
 import com.cursospring.lojavirtual.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -51,7 +54,13 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "tb_telefones")
 	private Set<String> telefones = new HashSet<String>();
 	
-	public Cliente() {}
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "tb_perfis")
+	private Set<Integer> perfis = new HashSet<Integer>();
+	
+	public Cliente() {
+		this.addPerfil(Perfil.CLIENTE);
+	}
 
 	public Cliente(Long id, String nome, String email, String cpfOuCnpj, String senha, TipoCliente tipo) {
 		super();
@@ -60,6 +69,7 @@ public class Cliente implements Serializable {
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.senha = senha;
+		this.addPerfil(Perfil.CLIENTE);
 		this.tipo = (tipo == null) ? null : tipo.getCodigo();
 	}
 
@@ -133,6 +143,16 @@ public class Cliente implements Serializable {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream()
+				.map(perfil -> Perfil.toEnum(perfil))
+				.collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
 	}
 
 	@Override
