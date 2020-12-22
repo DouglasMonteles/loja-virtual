@@ -33,8 +33,8 @@ INSERT INTO tb_estado (nome) VALUES ('Maranhão');
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('Brasília', 1);
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('São Luís', 2);
 
-INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569094', 'teste.email.service@gmail.com', 'Douglas Silva', '123', 1);
-INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('39333214097', 'teste2@gmail.com', 'Teste', '123', 1);
+INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('19219569094', 'teste.email.service@gmail.com', 'Douglas Silva', '$2a$10$65DVJbhhlhquHnT5eHr06utGLNmkJyIA4mCY68msd2K3ST85dgL3i', 1);
+INSERT INTO tb_cliente (cpf_ou_cnpj, email, nome, senha, tipo) VALUES ('39333214097', 'teste2@gmail.com', 'Teste', '$2a$10$65DVJbhhlhquHnT5eHr06utGLNmkJyIA4mCY68msd2K3ST85dgL3i', 1);
 
 INSERT INTO tb_perfis (cliente_id, perfis) VALUES (1, 1);
 INSERT INTO tb_perfis (cliente_id, perfis) VALUES (1, 2);

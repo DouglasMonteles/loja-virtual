@@ -53,7 +53,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
 		
-		response.addHeader("Authorization", "Bearer" + token);
+		response.addHeader("Authorization", "Bearer " + token);
 	}
 	
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
@@ -70,8 +70,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			long date = new Date().getTime();
 			return "{\"timestamp\": " + date + ", "
 					+ "\"status\": 401, "
-					+ "\"error\": \"Não autorizado\", "
-					+ "\"message\": \"Email pu senha inválidos\","
+					+ "\"error\": \"Nao autorizado\", "
+					+ "\"message\": \"Email ou senha invalidos\","
 					+ "\"path:\": \"/login\""
 					+ "}";
 		}
