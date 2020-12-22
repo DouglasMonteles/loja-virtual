@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.cursospring.lojavirtual.services.exceptions.AuthorizationException;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
@@ -42,6 +43,12 @@ public class ResourceExceptionHandle {
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(), "Usuário não autorizado", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 	
 }

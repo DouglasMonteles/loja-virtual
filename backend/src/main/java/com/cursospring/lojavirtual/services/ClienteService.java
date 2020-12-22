@@ -19,9 +19,12 @@ import com.cursospring.lojavirtual.domain.Cliente;
 import com.cursospring.lojavirtual.domain.Endereco;
 import com.cursospring.lojavirtual.dto.ClienteCadastroDTO;
 import com.cursospring.lojavirtual.dto.ClienteDTO;
+import com.cursospring.lojavirtual.enums.Perfil;
 import com.cursospring.lojavirtual.enums.TipoCliente;
 import com.cursospring.lojavirtual.repositories.ClienteRepository;
 import com.cursospring.lojavirtual.repositories.EnderecoRepository;
+import com.cursospring.lojavirtual.security.UserSS;
+import com.cursospring.lojavirtual.services.exceptions.AuthorizationException;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
@@ -44,6 +47,10 @@ public class ClienteService {
 	}
 	
 	public Cliente findById(long id) {
+		UserSS user = UserService.authenticaded();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !user.getId().equals(id)) 
+			throw new AuthorizationException("Acesso negado!");
+		
 		Optional<Cliente> cliente = repository.findById(id);
 		return cliente.orElseThrow(
 				() -> new ObjectNotFoundException("Cliente não encontrado! Id informado: " + id)
