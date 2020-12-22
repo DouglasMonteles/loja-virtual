@@ -2,12 +2,14 @@ package com.cursospring.lojavirtual.resources;
 
 import java.net.URI;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +24,17 @@ public class PedidoResource {
 	
 	public PedidoResource(PedidoService service) {
 		this.service = service;
+	}
+	
+	@GetMapping
+	public ResponseEntity<Page<Pedido>> findPedidoByCliente(
+				@RequestParam(value = "page", defaultValue = "0") int page, 
+				@RequestParam(value = "linesPerPage", defaultValue = "24") int linesPerPage,
+				@RequestParam(value = "orderBy", defaultValue = "instante") String orderBy,
+				@RequestParam(value = "direction", defaultValue = "DESC") String direction
+			) {
+		Page<Pedido> pedidosDoCliente = service.findPedidoByCliente(page, linesPerPage, direction, orderBy);
+		return ResponseEntity.ok().body(pedidosDoCliente);
 	}
 	
 	@GetMapping(value = "/{id}")
