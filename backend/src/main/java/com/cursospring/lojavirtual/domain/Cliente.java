@@ -40,6 +40,8 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	private String imgPath;
+	
 	@JsonIgnore
 	private String senha;
 	
@@ -103,6 +105,14 @@ public class Cliente implements Serializable {
 
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 	public String getSenha() {

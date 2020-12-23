@@ -1,18 +1,23 @@
 package com.cursospring.lojavirtual.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cursospring.lojavirtual.domain.Cidade;
 import com.cursospring.lojavirtual.domain.Cliente;
@@ -27,12 +32,19 @@ import com.cursospring.lojavirtual.security.UserSS;
 import com.cursospring.lojavirtual.services.exceptions.AuthorizationException;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
+import com.cursospring.lojavirtual.services.utils.UploadService;
 
 @Service
 public class ClienteService {
 
 	private ClienteRepository repository;
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private UploadService uploadService;
+	
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -108,6 +120,35 @@ public class ClienteService {
 			cliente.getTelefones().add(cadastro.getTelefone3());
 		
 		return cliente;
+	}
+
+	public URI uploadProfilePicture(MultipartFile file) {
+		UserSS user = UserService.authenticaded();
+		
+		if (user == null)
+			throw new AuthorizationException("Acesso negado!");
+		
+		Cliente cliente = findById(user.getId());
+		cliente.setImgPath(uploadService.uploadProfilePicture(file, cliente.getId(), prefix, "/clientes_img"));
+		repository.save(cliente);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+					.path("/{imgPath}").buildAndExpand(cliente.getImgPath())
+					.toUri();
+		
+		return uri;
+	}
+
+	public void showProfilePicture(String clientPicture, HttpServletResponse response) {
+		UserSS user = UserService.authenticaded();
+		if (user == null) 
+			throw new AuthorizationException("Acesso negado!");
+		
+		Cliente cliente = findById(user.getId());
+		if (!cliente.getImgPath().equals(clientPicture))
+			throw new AuthorizationException("Acesso negado!");
+		
+		uploadService.showData("clientes_img/" + clientPicture, response);
 	}
 	
 }
