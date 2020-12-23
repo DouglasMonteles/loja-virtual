@@ -3,8 +3,10 @@ package com.cursospring.lojavirtual.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,11 +18,15 @@ import com.cursospring.lojavirtual.dto.CategoriaDTO;
 import com.cursospring.lojavirtual.repositories.CategoriaRepository;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
+import com.cursospring.lojavirtual.services.utils.UploadService;
 
 @Service
 public class CategoriaService {
 
 	private CategoriaRepository repository;
+	
+	@Autowired
+	private UploadService uploadService;
 	
 	public CategoriaService(CategoriaRepository repository) {
 		this.repository = repository;
@@ -67,6 +73,10 @@ public class CategoriaService {
 
 	public Categoria fromDTO(@Valid CategoriaDTO categoriaDTO) {
 		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+	}
+
+	public void showCategoriaPicture(String categoriaPicture, HttpServletResponse response) {
+		uploadService.showData("categorias_img/" + categoriaPicture, response);
 	}
 	
 }

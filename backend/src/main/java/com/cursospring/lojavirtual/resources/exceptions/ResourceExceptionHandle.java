@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.cursospring.lojavirtual.services.exceptions.AuthorizationException;
 import com.cursospring.lojavirtual.services.exceptions.DataIntegrityException;
+import com.cursospring.lojavirtual.services.exceptions.FileException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -49,6 +50,12 @@ public class ResourceExceptionHandle {
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 		StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(), "Usuário não autorizado", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+	}
+	
+	@ExceptionHandler(FileException.class)
+	public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request) {
+		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), "Arquivo não encontrado", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 	
 }

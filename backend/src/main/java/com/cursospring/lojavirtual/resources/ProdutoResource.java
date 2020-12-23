@@ -2,6 +2,8 @@ package com.cursospring.lojavirtual.resources;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +48,15 @@ public class ProdutoResource {
 		Page<ProdutoDTO> produtosPaginadosDTO = produtosPaginados.map(produto -> new ProdutoDTO(produto));
 		
 		return ResponseEntity.ok().body(produtosPaginadosDTO);
+	}
+	
+	@GetMapping(value = "/picture/{productPicture}")
+	public ResponseEntity<Void> showProfilePicture(
+				@PathVariable("productPicture") String productPicture,
+				HttpServletResponse response
+			) {
+		service.showProductPicture(productPicture, response);
+		return ResponseEntity.ok().build();
 	}
 	
 }

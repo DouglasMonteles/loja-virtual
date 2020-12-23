@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -49,6 +50,15 @@ public class CategoriaResource {
 	public ResponseEntity<Categoria> findById(@PathVariable Integer id) {
 		Categoria categoria = service.findById(id);
 		return ResponseEntity.ok().body(categoria);
+	}
+	
+	@GetMapping(value = "/picture/{categoriaPicture}")
+	public ResponseEntity<Void> showProfilePicture(
+				@PathVariable("categoriaPicture") String categoriaPicture,
+				HttpServletResponse response
+			) {
+		service.showCategoriaPicture(categoriaPicture, response);
+		return ResponseEntity.ok().build();
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
