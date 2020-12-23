@@ -52,6 +52,12 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@GetMapping(value = "/email")
+	public ResponseEntity<Cliente> findByEmail(@RequestParam("value") String email) {
+		Cliente cliente = service.findClienteByEmail(email);
+		return ResponseEntity.ok().body(cliente);
+	}
+	
 	@GetMapping(value = "/picture/{clientPicture}")
 	public ResponseEntity<Void> showProfilePicture(
 				@PathVariable("clientPicture") String clientPicture,
