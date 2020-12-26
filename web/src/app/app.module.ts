@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './components/menu/menu.component';
+import { RodapeComponent } from './components/rodape/rodape.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,10 @@ import { MenuComponent } from './components/menu/menu.component';
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
-  providers: [MenuComponent],
+  providers: [
+    MenuComponent,
+    RodapeComponent,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

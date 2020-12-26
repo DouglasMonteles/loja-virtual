@@ -1,0 +1,13 @@
+footer {
+  width: 100vw;
+  height: 20vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: medium;
+  color: var(--text-color);
+
+  background-color: var(--primary-color);
+}
