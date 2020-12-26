@@ -7,11 +7,15 @@ const routes: Routes = [
     path: 'landing-page', 
     loadChildren: () => import('./views/landing-page/landing-page.module').then(m => m.LandingPageModule) 
   },
+  { 
+    path: 'products-page', 
+    loadChildren: () => import('./views/products-page/products-page.module').then(m => m.ProductsPageModule) 
+  },
   {
     path: '',
     redirectTo: 'landing-page',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({
