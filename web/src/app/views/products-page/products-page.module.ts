@@ -13,7 +13,7 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
   imports: [
     CommonModule,
     ProductsPageRoutingModule,
-    MenuModule
+    MenuModule,
   ]
 })
 export class ProductsPageModule { }

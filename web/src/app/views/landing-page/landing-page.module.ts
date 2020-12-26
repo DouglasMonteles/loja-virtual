@@ -6,7 +6,6 @@ import { LandingPageComponent } from './landing-page.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuModule } from 'src/app/components/menu/menu.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     LandingPageRoutingModule,
     MatButtonModule,
     MatIconModule,
-    MenuModule
   ]
 })
 export class LandingPageModule { }

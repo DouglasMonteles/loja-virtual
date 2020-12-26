@@ -1,0 +1,7 @@
+#menu-toobar {
+  background-color: var(--primary-color);
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
