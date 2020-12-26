@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { 
+  height: 100%; 
+}
+
+body { 
+  margin: 0; 
+  font-family: Nunito, Roboto, Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --primary-color: #FA4224;
+  --secondary-color: #FF8310;
+  --title-color: #fff;
+  --subtitle-color: #ccc;
+  --text-color: #fff;
+  --text: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Nunito;
+  color: var(--title-color);
+}
