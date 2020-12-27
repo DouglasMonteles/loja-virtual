@@ -7,6 +7,7 @@ body {
   padding: 0;
   color: var(--text-color);
   font-family: Nunito, Roboto, Arial, Helvetica, sans-serif;
+  background-color: var(--background-light);
 }
 
 :root {
@@ -16,6 +17,8 @@ body {
   --subtitle-color: #ccc;
   --text-color: #fff;
   --text: #000;
+
+  --background-light: #F4F9F1;
 }
 
 h1, h2, h3, h4, h5, h6, span {
