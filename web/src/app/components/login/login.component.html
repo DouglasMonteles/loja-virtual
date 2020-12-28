@@ -15,7 +15,7 @@
 
     <mat-form-field>
       <mat-label>Senha</mat-label>
-      <input type="password" name="senha" formControlName="senha" placeholder="Mínimo de 5 caracteres" matInput>
+      <input type="password" name="senha" formControlName="senha" placeholder="Mínimo de 5 caracteres" autocomplete="off" matInput>
       <mat-error *ngIf="loginFormControl.controls.senha.errors?.required">
         Senha é <strong>obrigatória</strong>
       </mat-error>
