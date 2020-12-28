@@ -1,0 +1,13 @@
+<mat-card>
+  <img mat-card-image [src]="product.imageUrl"
+    [alt]="product.name">
+  <mat-card-content>
+    <div>
+      <h2>{{product.name}}</h2>
+      <p>{{product.price}}</p>
+    </div>
+    <button (click)="productDetail(product.id)" mat-fab color="warn" aria-label="icon button with a home icon">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
