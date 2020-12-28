@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductModel } from 'src/app/models/product.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
-import { CategoriaModel } from 'src/app/models/categoria.model';
+import { CategoryModel } from 'src/app/models/category.model';
+import { HandleMessageService } from 'src/app/services/handle-message.service';
 
 @Component({
   selector: 'app-products-page',
@@ -11,7 +12,7 @@ import { CategoriaModel } from 'src/app/models/categoria.model';
 })
 export class ProductsPageComponent implements OnInit {
 
-  categories: CategoriaModel[];
+  categories: CategoryModel[];
 
   products: ProductModel[] = [
     {
@@ -50,6 +51,7 @@ export class ProductsPageComponent implements OnInit {
     private router: Router, 
     private route: ActivatedRoute,
     private categoriaService: CategoriaService,
+    private handleMessage: HandleMessageService,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class ProductsPageComponent implements OnInit {
         this.categories = data;
       },
 
-      error: (error) => {}
+      error: () => this.handleMessage.showMessage('Erro ao carregar as categorias', true)
     });
   }
 

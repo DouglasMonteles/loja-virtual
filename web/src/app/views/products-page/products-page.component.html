@@ -2,158 +2,16 @@
 
 <main>
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Informática" (click)="handleProductByCategory(1)">
+    <mat-tab 
+      *ngFor="let category of categories"
+      [label]="category.nome"
+      (click)="handleProductByCategory(category.id)"
+    >
       <div id="card-grid">
-        <app-card-product *ngFor="let prod of products" [product]="prod"></app-card-product>  
-      </div>
-    </mat-tab>
-        
-
-    <mat-tab label="Second">
-      <div id="card-grid">
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </mat-tab>
-
-    <mat-tab label="third">
-      <div id="card-grid">
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-            alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <div>
-              <h2>Cachorro</h2>
-              <p>R$ 1.000,00</p>
-            </div>
-            <button mat-fab color="warn" aria-label="icon button with a home icon">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
+        <app-card-product 
+          *ngFor="let prod of products" 
+          [product]="prod"
+        ></app-card-product>  
       </div>
     </mat-tab>
   </mat-tab-group>

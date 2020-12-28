@@ -8,12 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './components/menu/menu.component';
 import { LoginComponent } from './components/login/login.component';
 import { RodapeComponent } from './components/rodape/rodape.component';
+import { CardProductComponent } from './components/card-product/card-product.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { CardProductComponent } from './components/card-product/card-product.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { CardProductComponent } from './components/card-product/card-product.com
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
+    MatSnackBarModule,
   ],
   providers: [
     MenuComponent,
