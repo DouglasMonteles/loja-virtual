@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-menu',
@@ -9,18 +10,21 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  itensNoCarrinho: number = 0;
   private router: Router;
+  private loginComponent: LoginComponent;
+  itensNoCarrinho: number = 0;
+  
 
-  constructor(router: Router) { 
+  constructor(router: Router, loginComponent: LoginComponent) { 
     this.router = router;
+    this.loginComponent = loginComponent;
   }
 
   ngOnInit(): void {
   }
 
   login() : void {
-    
+    this.loginComponent.openDialog();
   }
 
   sair(): void {

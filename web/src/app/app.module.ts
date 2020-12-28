@@ -11,7 +11,6 @@ import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
   providers: [
     MenuComponent,
     RodapeComponent,
+    LoginComponent,
   ],
   bootstrap: [AppComponent]
 })

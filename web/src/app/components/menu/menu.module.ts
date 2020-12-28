@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { LoginModule } from '../login/login.module';
+
 @NgModule({
   declarations: [
     MenuComponent,
@@ -20,6 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatToolbarModule,
     MatBadgeModule,
     MatMenuModule,
+    LoginModule,
   ],
   exports: [
     MenuComponent,
