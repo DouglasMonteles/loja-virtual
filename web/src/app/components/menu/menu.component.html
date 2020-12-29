@@ -14,6 +14,11 @@
       *ngIf="isUserLogado" 
       (click)="login()"
     >Login</button>
+    <button
+      mat-menu-item
+      *ngIf="isUserLogado" 
+      routerLink="/profile-page"
+    >Perfil</button>
     <button mat-menu-item (click)="sair()">Sair</button>
   </mat-menu>
 </mat-toolbar>

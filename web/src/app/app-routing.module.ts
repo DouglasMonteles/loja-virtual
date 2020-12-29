@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'products-page', 
     loadChildren: () => import('./views/products-page/products-page.module').then(m => m.ProductsPageModule) 
   },
+  { 
+    path: 'profile-page', 
+    loadChildren: () => import('./views/profile-page/profile-page.module').then(m => m.ProfilePageModule) 
+  },
   {
     path: '',
     redirectTo: 'landing-page',
