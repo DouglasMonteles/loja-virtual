@@ -6,15 +6,21 @@ import { environment } from 'src/environments/environment';
 import { LocalUser } from '../models/local-user.model';
 import { StorageService } from './storage.service';
 
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
+  private jwtHelper: JwtHelperService;
+
   constructor(
     private http: HttpClient,
     private storage: StorageService,
-  ) { }
+  ) {
+    this.jwtHelper = new JwtHelperService();
+  }
 
   authenticate(loginCreds: LoginModel): Observable<HttpResponse<void>> {
     const path = `${environment.baseURL}/login`;
@@ -27,8 +33,9 @@ export class AuthenticationService {
     const token = authorization.substring(7); // Remove o 'Bearer '
     const user: LocalUser = {
       token,
+      email: this.jwtHelper.decodeToken(token).sub,
     };
-
+    
     this.storage.setLocalUser(user);
   }
 
