@@ -55,11 +55,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  closeDialog(): void {
+    this.dialog.closeAll();
+  }
+
   login(): void {
     this.auth.authenticate(this.loginModel).subscribe({
       next: (data) => {
-        console.log(data.headers.get('Authorization'));
+        const headerName = data.headers.get('Authorization');
+
+        this.auth.successfullLogin(headerName);
         this.message.showMessage('Login efetuado com sucesso!');
+        this.closeDialog();
       },
 
       error: (data) => {

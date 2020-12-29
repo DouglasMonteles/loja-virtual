@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
+import { StorageService } from 'src/app/services/storage.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -15,6 +17,8 @@ export class MenuComponent implements OnInit {
   constructor(
     private router: Router, 
     private loginComponent: LoginComponent,
+    private storage: StorageService,
+    private auth: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +29,12 @@ export class MenuComponent implements OnInit {
   }
 
   sair(): void {
+    this.auth.logout();
     this.router.navigateByUrl('/');
+  }
+
+  get isUserLogado(): boolean {
+    return (this.storage.getLocalUser() === null);
   }
 
 }

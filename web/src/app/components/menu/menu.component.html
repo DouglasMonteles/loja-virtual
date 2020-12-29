@@ -9,7 +9,11 @@
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="login()">Login</button>
+    <button
+      mat-menu-item
+      *ngIf="isUserLogado" 
+      (click)="login()"
+    >Login</button>
     <button mat-menu-item (click)="sair()">Sair</button>
   </mat-menu>
 </mat-toolbar>
