@@ -10,15 +10,12 @@ import { LoginComponent } from '../login/login.component';
 })
 export class MenuComponent implements OnInit {
 
-  private router: Router;
-  private loginComponent: LoginComponent;
   itensNoCarrinho: number = 0;
-  
 
-  constructor(router: Router, loginComponent: LoginComponent) { 
-    this.router = router;
-    this.loginComponent = loginComponent;
-  }
+  constructor(
+    private router: Router, 
+    private loginComponent: LoginComponent,
+  ) {}
 
   ngOnInit(): void {
   }

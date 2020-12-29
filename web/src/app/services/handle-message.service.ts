@@ -16,4 +16,13 @@ export class HandleMessageService {
       panelClass: (isError) ? ['msg-error'] : ['msg-success'], 
     });
   }
+
+  showDefaultMessage(): void {
+    this.snack.open('Ocorreu um erro inesperado! Tente novamente.', 'X', {
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['msg-error'], 
+    });
+  }
 }

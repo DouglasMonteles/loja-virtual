@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="mat-elevation-z4">
   <img mat-card-image [src]="product.imageUrl"
     [alt]="product.name">
   <mat-card-content>
@@ -6,7 +6,7 @@
       <h2>{{product.name}}</h2>
       <p>{{product.price}}</p>
     </div>
-    <button (click)="productDetail(product.id)" mat-fab color="warn" aria-label="icon button with a home icon">
+    <button (click)="productDetail(product.id)" mat-mini-fab color="warn" aria-label="icon button with a home icon">
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </mat-card-content>

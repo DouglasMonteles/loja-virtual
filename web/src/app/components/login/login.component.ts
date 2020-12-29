@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginModel } from 'src/app/models/login.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HandleMessageService } from 'src/app/services/handle-message.service';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +13,6 @@ import { LoginModel } from 'src/app/models/login.model';
 })
 export class LoginComponent implements OnInit {
 
-  private dialog: MatDialog;
-  private formBuilder: FormBuilder;
-
   loginModel: LoginModel = {
     email: '', 
     senha: '',
@@ -20,15 +20,22 @@ export class LoginComponent implements OnInit {
 
   loginFormControl: FormGroup;
 
-  constructor(dialog: MatDialog, formBuilder: FormBuilder) {
-    this.dialog = dialog;
-    this.formBuilder = formBuilder;
+  constructor(
+    private dialog: MatDialog, 
+    private formBuilder: FormBuilder,
+    private auth: AuthenticationService,
+    private message: HandleMessageService,
+  ) {
   }
 
   ngOnInit(): void {
     this.loginFormControl = this.formBuilder.group({
       email: [this.loginModel.email, [Validators.required, Validators.email]],
       senha: [this.loginModel.senha, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]]
+    });
+
+    this.loginFormControl.valueChanges.forEach((value: LoginModel) => {
+      this.loginModel = value;
     });
   }
 
@@ -49,7 +56,20 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginFormControl.value);
+    this.auth.authenticate(this.loginModel).subscribe({
+      next: (data) => {
+        console.log(data.headers.get('Authorization'));
+        this.message.showMessage('Login efetuado com sucesso!');
+      },
+
+      error: (data) => {
+        if (data.status !== 0) {
+          this.message.showMessage(data.error.message, true);
+        } else {
+          this.message.showDefaultMessage();
+        }
+      }
+    });
   }
 
   cancelar(): void {
