@@ -24,8 +24,12 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() : void {
+  handleLogin() : void {
     this.loginComponent.openDialog();
+  }
+
+  handleProfilePage() {
+    this.router.navigateByUrl('/profile-page');
   }
 
   sair(): void {

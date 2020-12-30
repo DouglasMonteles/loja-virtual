@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor() { }
+  email: string;
+
+  constructor(
+    private storage: StorageService,
+  ) { }
 
   ngOnInit(): void {
+    const localUser = this.storage.getLocalUser();
+    
+    if (localUser && localUser.email) {
+      this.email = localUser.email;
+    } 
   }
 
 }
