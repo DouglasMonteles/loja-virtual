@@ -16,13 +16,8 @@ export class ClienteService {
   ) {}
 
   findByEmail(email: string): Observable<ClienteModel> {
-    const token = this.storage.getLocalUser().token;
     const path = `${environment.baseURL}/clientes/email?value=${email}`;
-    return this.http.get<ClienteModel>(path, {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + token,
-      }),
-    });
+    return this.http.get<ClienteModel>(path);
   }
 
   getClientImage(image: string): Observable<any> {

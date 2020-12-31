@@ -13,6 +13,7 @@ import { CardProductComponent } from './components/card-product/card-product.com
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     JwtModule,
   ],
   providers: [
+    AuthInterceptorProvider,
     MenuComponent,
     RodapeComponent,
     LoginComponent,
