@@ -23,7 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   handleError(data) {
-    this.message.showMessage(data.error.message, true);
     console.log(data);
     let intercepError = data;
 
@@ -35,19 +34,32 @@ export class ErrorInterceptor implements HttpInterceptor {
       intercepError = JSON.parse(intercepError);
     }
 
-    console.log('Erro intercaptado: ' + intercepError);
-
     switch (intercepError.status) {
+      case 401: 
+        this.handle401(data);
+      break;
+
       case 403:
         this.handle403();
-        break;
+      break;
+
+      default: 
+        this.handleDefaultError(data);
     }
 
     return Observable.throw(intercepError);
   }
 
+  handle401(data): void {
+    this.message.showMessage(data.error.message, true);
+  }
+
   handle403(): void {
     this.storage.setLocalUser(null);
+  }
+
+  handleDefaultError(data): void {
+    this.message.showMessage(data.error.message, true);
   }
 
 }
