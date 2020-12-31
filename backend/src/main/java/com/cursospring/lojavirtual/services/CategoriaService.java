@@ -76,7 +76,7 @@ public class CategoriaService {
 	}
 
 	public void showCategoriaPicture(String categoriaPicture, HttpServletResponse response) {
-		uploadService.showData("categorias_img/" + categoriaPicture, response);
+		uploadService.showData("/categorias_img/" + categoriaPicture, response);
 	}
 	
 }

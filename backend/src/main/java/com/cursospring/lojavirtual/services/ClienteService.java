@@ -141,7 +141,7 @@ public class ClienteService {
 			throw new AuthorizationException("Acesso negado!");
 		
 		Cliente cliente = findById(user.getId());
-		cliente.setImgPath(uploadService.uploadProfilePicture(file, cliente.getId(), prefix, "/clientes_img"));
+		cliente.setImgPath(uploadService.uploadPicture(file, cliente.getId(), prefix, "/clientes_img"));
 		repository.save(cliente);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -152,15 +152,7 @@ public class ClienteService {
 	}
 
 	public void showProfilePicture(String clientPicture, HttpServletResponse response) {
-		UserSS user = UserService.authenticaded();
-		if (user == null) 
-			throw new AuthorizationException("Acesso negado!");
-		
-		Cliente cliente = findById(user.getId());
-		if (!cliente.getImgPath().equals(clientPicture))
-			throw new AuthorizationException("Acesso negado!");
-		
-		uploadService.showData("clientes_img/" + clientPicture, response);
+		uploadService.showData("/clientes_img/" + clientPicture, response);
 	}
 	
 }

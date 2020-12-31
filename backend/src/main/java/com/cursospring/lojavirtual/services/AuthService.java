@@ -10,20 +10,23 @@ import com.cursospring.lojavirtual.domain.Cliente;
 import com.cursospring.lojavirtual.repositories.ClienteRepository;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 
+
 @Service
 public class AuthService {
 
 	private ClienteRepository repository;
+	
+	@Autowired
 	private EmailService emailService;
+	
 	private Random random = new Random();
 	
 	@Autowired
 	private BCryptPasswordEncoder enconder;
 	
 	
-	public AuthService(ClienteRepository repository, EmailService emailService) {
+	public AuthService(ClienteRepository repository) {
 		this.repository = repository;
-		this.emailService = emailService;
 	}
 	
 	public void sendNewPassword(String email) {

@@ -3,11 +3,19 @@
 <main>
   <div id="profile" class="mat-elevator-z4">
     <mat-card>
-      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Imagem de perfil do cliente">
+      <img 
+        [src]="this.getIfImageExists() || '/assets/avatar-blank.png'" 
+        alt="Imagem de perfil do cliente"
+      >
   
       <p>
-        <strong>Email:</strong> {{email}}
+        <strong>Nome:</strong> {{cliente?.nome}}
       </p>
+
+      <p>
+        <strong>Email:</strong>  {{cliente?.email}}
+      </p>
+
     </mat-card>
   </div>
 </main>

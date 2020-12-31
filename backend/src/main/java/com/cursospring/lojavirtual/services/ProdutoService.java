@@ -11,11 +11,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cursospring.lojavirtual.domain.Categoria;
 import com.cursospring.lojavirtual.domain.Produto;
+import com.cursospring.lojavirtual.enums.Perfil;
 import com.cursospring.lojavirtual.repositories.CategoriaRepository;
 import com.cursospring.lojavirtual.repositories.ProdutoRepository;
+import com.cursospring.lojavirtual.security.UserSS;
+import com.cursospring.lojavirtual.services.exceptions.AuthorizationException;
 import com.cursospring.lojavirtual.services.exceptions.ObjectNotFoundException;
 import com.cursospring.lojavirtual.services.utils.UploadService;
 
@@ -31,7 +35,8 @@ public class ProdutoService {
 	@Value("${img.prefix.product.profile}")
 	private String prefix;
 	
-	public ProdutoService(ProdutoRepository repository, CategoriaRepository categoriaRepository) {
+	public ProdutoService(ProdutoRepository repository, CategoriaRepository categoriaRepository, 
+			ClienteService clienteService) {
 		this.repository = repository;
 		this.categoriaRepository = categoriaRepository;
 	}
@@ -50,7 +55,18 @@ public class ProdutoService {
 	}
 
 	public void showProductPicture(String productPicture, HttpServletResponse response) {
-		uploadService.showData("produtos_img/" + productPicture, response);
+		uploadService.showData("/produtos_img/" + productPicture, response);
+	}
+
+	public void uploadProfilePicture(long id, MultipartFile file) {
+		UserSS user = UserService.authenticaded();
+		
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !user.getId().equals(id)) 
+			throw new AuthorizationException("Acesso negado!");
+		
+		Produto produto = findById(id);
+		produto.setImgPath(uploadService.uploadPicture(file, id, prefix, "/produtos_img/"));
+		repository.save(produto);
 	}
 	
 }

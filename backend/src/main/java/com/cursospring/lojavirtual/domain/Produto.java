@@ -29,6 +29,7 @@ public class Produto implements Serializable {
 	private Long id;
 	private String nome;
 	private Double preco;
+	private String imgPath;
 	
 	@JsonIgnore
 	@ManyToMany
@@ -45,11 +46,12 @@ public class Produto implements Serializable {
 	
 	public Produto() {}
 	
-	public Produto(Long id, String nome, Double preco) {
+	public Produto(Long id, String nome, Double preco, String imgPath) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+		this.imgPath = imgPath;
 	}
 	
 	@JsonIgnore
@@ -85,6 +87,14 @@ public class Produto implements Serializable {
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 	public List<Categoria> getCategorias() {

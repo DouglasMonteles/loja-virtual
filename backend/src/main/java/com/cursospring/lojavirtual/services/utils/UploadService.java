@@ -16,12 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cursospring.lojavirtual.services.exceptions.FileException;
 
+
 @Service
 public class UploadService {
 
 	public static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 	
-	public String uploadProfilePicture(MultipartFile file, Long id, String prefix, String directory) {
+	public String uploadPicture(MultipartFile file, Long id, String prefix, String directory) {
 		try {
 			String extensao = FilenameUtils.getExtension(file.getOriginalFilename());
 			String nomeArquivo = prefix + id.toString() + "." + extensao;
