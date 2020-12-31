@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     JwtModule,
   ],
   providers: [
+    ErrorInterceptorProvider,
     AuthInterceptorProvider,
     MenuComponent,
     RodapeComponent,
