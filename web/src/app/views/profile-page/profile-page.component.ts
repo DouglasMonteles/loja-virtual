@@ -35,13 +35,7 @@ export class ProfilePageComponent implements OnInit {
           this.getIfImageExists(imgPath);
         },
 
-        error: (data) => {
-          if (data.status !== 0) {
-            this.message.showMessage(data.error.message, true);
-          } else {
-            this.message.showDefaultMessage();
-          }
-        }
+        error: () => {}
       });
     }
   }

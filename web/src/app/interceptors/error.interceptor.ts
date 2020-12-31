@@ -1,33 +1,53 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { StorageService } from '../services/storage.service';
+import { catchError } from 'rxjs/operators';
+import { HandleMessageService } from '../services/handle-message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  constructor(
+    private storage: StorageService,
+    private message: HandleMessageService,
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('Passou no interceptor de erro');
-    return next.handle(req).subscribe({
-      error: (data) => {
-        let intercepError = data;
+    return next.handle(req).pipe(
+      catchError(data => this.handleError(data)),
+    );
+  }
 
-        if (intercepError.error) {
-          intercepError = intercepError.error;
-        }
+  handleError(data) {
+    this.message.showMessage(data.error.message, true);
+    console.log(data);
+    let intercepError = data;
 
-        if (!intercepError.status) {
-          intercepError = JSON.parse(intercepError);
-        }
+    if (intercepError.error) {
+      intercepError = intercepError.error;
+    }
 
-        console.log('Erro intercaptado: ' + intercepError);
+    if (!intercepError.status) {
+      intercepError = JSON.parse(intercepError);
+    }
 
-        return Observable.throw(intercepError);
-      }
-    }) as any;
+    console.log('Erro intercaptado: ' + intercepError);
+
+    switch (intercepError.status) {
+      case 403:
+        this.handle403();
+        break;
+    }
+
+    return Observable.throw(intercepError);
+  }
+
+  handle403(): void {
+    this.storage.setLocalUser(null);
   }
 
 }

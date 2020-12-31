@@ -69,13 +69,7 @@ export class LoginComponent implements OnInit {
         this.closeDialog();
       },
 
-      error: (data) => {
-        if (data.status !== 0) {
-          this.message.showMessage(data.error.message, true);
-        } else {
-          this.message.showDefaultMessage();
-        }
-      }
+      error: () => {}
     });
   }
 
