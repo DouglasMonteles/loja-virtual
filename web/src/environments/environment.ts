@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseURL: 'http://localhost:8080',
+  baseImageURL: 'https://loja-virtual-monteles.herokuapp.com',
 };
 
 /*

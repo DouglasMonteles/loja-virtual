@@ -13,29 +13,22 @@ export class ClienteService {
   constructor(
     private http: HttpClient,
     private storage: StorageService,
-  ) { 
-    this.getToken();
-  }
-
-  getToken(): HttpHeaders {
-    const token = this.storage.getLocalUser().token;
-    return new HttpHeaders({
-      'Authorization': 'Bearer ' + token,
-    });
-  }
+  ) {}
 
   findByEmail(email: string): Observable<ClienteModel> {
+    const token = this.storage.getLocalUser().token;
     const path = `${environment.baseURL}/clientes/email?value=${email}`;
     return this.http.get<ClienteModel>(path, {
-      headers: this.getToken(),
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + token,
+      }),
     });
   }
 
   getClientImage(image: string): Observable<any> {
-    const path = `${environment.baseURL}/clientes/picture/${image}`;
+    const path = `${environment.baseImageURL}/clientes/picture/${image}`;
     return this.http.get(path, {
       responseType: 'blob',
-      headers: this.getToken(),
     });
   }
 

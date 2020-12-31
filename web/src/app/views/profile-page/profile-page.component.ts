@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
-import { ClienteModel } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
+import { ClienteModel } from 'src/app/models/cliente.model';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,7 +13,6 @@ import { Observable } from 'rxjs';
 export class ProfilePageComponent implements OnInit {
 
   cliente: ClienteModel;
-  img: File;
 
   constructor(
     private storage: StorageService,
@@ -28,8 +26,13 @@ export class ProfilePageComponent implements OnInit {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email).subscribe({
         next: (data) => {
-          this.cliente = data;
-          //this.getIfImageExists();
+          const { id, nome, email, imgPath } = data;
+          this.cliente = {
+            id,
+            nome,
+            email,
+          };
+          this.getIfImageExists(imgPath);
         },
 
         error: (data) => {
@@ -43,12 +46,15 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  getIfImageExists(): Observable<any> {
-    return this.clienteService.getClientImage(this.cliente.imgPath);
-      // .subscribe(data => {
-      //   //this.cliente.imgPath = `${environment.baseURL}/clientes/picture/${this.cliente.imgPath}`;
-      //   return data;
-      // });
+  getIfImageExists(img: string): void {
+    this.clienteService.getClientImage(img).subscribe({
+      next: () => {
+        this.cliente.imgPath = `${environment.baseImageURL}/clientes/picture/${img}`;
+      },
+      error: () => {
+        this.cliente.imgPath = null;
+      },
+    });
   }
 
 }
