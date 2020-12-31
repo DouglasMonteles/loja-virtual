@@ -55,6 +55,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   handle403(): void {
+    this.message.showMessage('Sua sessão expirou! Faça login novamente.', true)
     this.storage.setLocalUser(null);
   }
 

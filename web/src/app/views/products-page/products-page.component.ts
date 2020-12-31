@@ -4,6 +4,7 @@ import { ProductModel } from 'src/app/models/product.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoryModel } from 'src/app/models/category.model';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-products-page',
@@ -52,9 +53,25 @@ export class ProductsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private categoriaService: CategoriaService,
     private handleMessage: HandleMessageService,
+    private auth: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
+    this.handleRefreshToken();
+    this.handleCategories();
+  }
+
+  handleRefreshToken(): void {
+    this.auth.refreshToken().subscribe({
+      next: (data) => {
+        this.auth.successfullLogin(data.headers.get('Authorization'));
+      },
+
+      error: () => {}
+    });
+  }
+
+  handleCategories(): void {
     this.categoriaService.findAll().subscribe({
       next: (data) => {
         this.categories = data;

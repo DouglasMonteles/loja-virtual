@@ -29,6 +29,14 @@ export class AuthenticationService {
     });
   }
 
+  refreshToken() {
+    const path = `${environment.baseURL}/auth/refresh_token`;
+    return this.http.post(path, {}, { 
+      observe: 'response', 
+      responseType: 'text' 
+    });
+  }
+
   successfullLogin(authorization: string): void {
     const token = authorization.substring(7); // Remove o 'Bearer '
     const user: LocalUser = {
