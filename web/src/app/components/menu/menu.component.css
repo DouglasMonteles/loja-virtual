@@ -2,6 +2,10 @@
   background-color: var(--primary-color);
 }
 
+#menu-toobar h1, #menu-toobar button {
+  color: var(--text-color);
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }

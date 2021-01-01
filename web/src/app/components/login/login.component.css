@@ -39,3 +39,11 @@ mat-error {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.grp-opcoes a {
+  cursor: pointer;
+}
+
+.grp-opcoes a:hover {
+  text-decoration: underline;
+}

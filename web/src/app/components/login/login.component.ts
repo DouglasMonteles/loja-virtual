@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginModel } from 'src/app/models/login.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
-import { MenuComponent } from '../menu/menu.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthenticationService,
     private message: HandleMessageService,
+    private router: Router,
   ) {
   }
 
@@ -73,8 +74,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  handleSigup(): void {
+    this.router.navigateByUrl('/sigup-page');
+    this.closeDialog();
+  }
+
   cancelar(): void {
-    this.dialog.closeAll();
+    this.closeDialog();
   }
 
 }

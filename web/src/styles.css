@@ -5,7 +5,8 @@ html, body {
 body { 
   margin: 0; 
   padding: 0;
-  color: var(--text-color);
+  color: var(--text);
+  
   font-family: Nunito, Roboto, Arial, Helvetica, sans-serif;
   background-color: var(--background-light);
 }
@@ -23,7 +24,6 @@ body {
 
 h1, h2, h3, h4, h5, h6, span {
   font-family: Nunito;
-  color: var(--title-color);
 }
 
 .msg-success {

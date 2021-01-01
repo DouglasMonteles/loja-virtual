@@ -30,7 +30,7 @@
     <button [disabled]="loginFormControl.invalid" type="submit" class="btn-entrar" mat-button>Entrar</button>
 
     <div class="grp-opcoes">
-      <a routerLink="/">Cadastre-se aqui</a>
+      <a (click)="handleSigup()">Cadastre-se aqui</a>
       <a routerLink="/">Esqueceu a senha?</a>
     </div>
   </form>
