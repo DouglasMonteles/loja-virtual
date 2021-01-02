@@ -32,6 +32,10 @@
   background-color: rgb(3, 103, 235);
 }
 
+.btn-cadastro:disabled {
+  background-color: #ccc;
+}
+
 .btn-cancelar {
   width: 100%;
   color: var(--text-color);

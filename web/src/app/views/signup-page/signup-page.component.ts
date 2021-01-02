@@ -5,15 +5,16 @@ import { EstadoModel } from 'src/app/models/estado.model';
 import { CidadeModel } from 'src/app/models/cidade.model';
 import { EstadoService } from 'src/app/services/estado.service';
 import { CidadeService } from 'src/app/services/cidade.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sigup-page',
-  templateUrl: './sigup-page.component.html',
-  styleUrls: ['./sigup-page.component.css'],
+  selector: 'app-signup-page',
+  templateUrl: './signup-page.component.html',
+  styleUrls: ['./signup-page.component.css'],
 })
-export class SigupPageComponent implements OnInit {
+export class SignupPageComponent implements OnInit {
 
-  sigupFormControl: FormGroup;
+  signupFormControl: FormGroup;
 
   cliente: ClienteCadastroModel = {
     nome: '',
@@ -41,13 +42,15 @@ export class SigupPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private estadoService: EstadoService,
     private cidadeService: CidadeService,
+    private router: Router,
   ) { 
-    this.sigupFormControl = this.formBuilder.group({
+    this.signupFormControl = this.formBuilder.group({
       nome: [
         this.cliente.nome, [
           Validators.required, 
           Validators.minLength(5), 
           Validators.maxLength(120),
+          Validators.pattern('[a-zA-Z ]*'),
         ]
       ],
       email: [
@@ -66,6 +69,7 @@ export class SigupPageComponent implements OnInit {
           Validators.required,
           Validators.minLength(11),
           Validators.maxLength(14),
+          Validators.pattern('[0-9]*'),
         ]
       ],
       senha: [
@@ -131,24 +135,28 @@ export class SigupPageComponent implements OnInit {
     this.estadoService.findAll().subscribe({
       next: (data) => {
         this.estados = data;
-        this.sigupFormControl.controls.estadoId.setValue(this.estados[0].id);
+        this.signupFormControl.controls.estadoId.setValue(this.estados[0].id);
         this.updateCidades();
       }
     });
   }
 
   updateCidades() {
-    const estadoId = this.sigupFormControl.value.estadoId;
+    const estadoId = this.signupFormControl.value.estadoId;
     this.cidadeService.findAll(estadoId).subscribe({
       next: (data) => {
         this.cidades = data;
-        this.sigupFormControl.controls.cidadeId.setValue(null);
+        this.signupFormControl.controls.cidadeId.setValue(null);
       },
     });
   }
 
   sigupUser(): void {
-    console.log(this.sigupFormControl.value);
+    console.log(this.signupFormControl.value);
+  }
+
+  cancelar(): void {
+    this.router.navigateByUrl('/products-page');
   }
 
 }

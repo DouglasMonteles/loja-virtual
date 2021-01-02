@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleSigup(): void {
-    this.router.navigateByUrl('/sigup-page');
+    this.router.navigateByUrl('/signup-page');
     this.closeDialog();
   }
 

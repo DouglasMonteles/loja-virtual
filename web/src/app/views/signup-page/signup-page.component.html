@@ -3,13 +3,22 @@
 <main>
   <div id="form-sigup" class="mat-elevation-z8">
     <h1>Cadastro de Cliente</h1>
-    <form [formGroup]="sigupFormControl" (ngSubmit)="sigupUser()">
+    <form [formGroup]="signupFormControl" (ngSubmit)="sigupUser()">
       <p>
         <mat-form-field>
           <mat-label>Nome:</mat-label>
           <input type="text" name="nome" formControlName="nome" matInput>
-          <mat-error *ngIf="">
+          <mat-error *ngIf="signupFormControl.controls.nome.errors?.required">
             Nome é <strong>obrigatório</strong>
+          </mat-error>
+          <mat-error *ngIf="signupFormControl.controls.nome.errors?.minlength">
+            Nome deve ter no mínimo <strong>{{signupFormControl.controls.nome.errors?.minlength.requiredLength}} letras</strong>
+          </mat-error>
+          <mat-error *ngIf="signupFormControl.controls.nome.errors?.maxlength">
+            Nome deve ter no máximo <strong>{{signupFormControl.controls.nome.errors?.maxlength.requiredLength}} letras</strong>
+          </mat-error>
+          <mat-error *ngIf="signupFormControl.controls.nome.errors?.pattern">
+            Nome deve conter somente <strong>letras</strong>
           </mat-error>
         </mat-form-field>
       </p>
@@ -18,8 +27,11 @@
         <mat-form-field>
           <mat-label>Email:</mat-label>
           <input type="email" name="email" formControlName="email" autocomplete="off" matInput>
-          <mat-error *ngIf="">
+          <mat-error *ngIf="signupFormControl.controls.email.errors?.required">
             Email é <strong>obrigatório</strong>
+          </mat-error>
+          <mat-error *ngIf="signupFormControl.controls.email.errors?.email">
+            Informe um email válido
           </mat-error>
         </mat-form-field>
       </p>
@@ -36,8 +48,17 @@
           <mat-form-field>
             <mat-label>CPF ou CNPJ:</mat-label>
             <input type="text" name="cpfOuCnpj" formControlName="cpfOuCnpj" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.cpfOuCnpj.errors?.required">
               CPF ou CNPJ é <strong>obrigatório</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls.cpfOuCnpj.errors?.minlength">
+              CPF ou CNPJ deve ter no mínimo <strong>{{signupFormControl.controls.cpfOuCnpj.errors?.minlength.requiredLength}} números</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls.cpfOuCnpj.errors?.maxlength">
+              CPF ou CNPJ deve ter no máximo <strong>{{signupFormControl.controls.cpfOuCnpj.errors?.maxlength.requiredLength}} números</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls.cpfOuCnpj.errors?.pattern">
+              CPF ou CNPJ deve conter somente <strong>números</strong>
             </mat-error>
           </mat-form-field>
         </p>
@@ -46,8 +67,14 @@
           <mat-form-field>
             <mat-label>Senha:</mat-label>
             <input type="password" name="senha" formControlName="senha" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.senha.errors?.required">
               Senha é <strong>obrigatório</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls.senha.errors?.minlength">
+              Senha deve ter no mínimo <strong>{{signupFormControl.controls.senha.errors?.minlength.requiredLength}} caracteres</strong>
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls.senha.errors?.maxlength">
+              Senha deve ter no máximo <strong>{{signupFormControl.controls.senha.errors?.maxlength.requiredLength}} caracteres</strong>
             </mat-error>
           </mat-form-field>
         </p>
@@ -58,7 +85,7 @@
           <mat-form-field>
             <mat-label>CEP:</mat-label>
             <input type="text" name="cep" formControlName="cep" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.cep.errors?.required">
               CEP é <strong>obrigatório</strong>
             </mat-error>
           </mat-form-field>
@@ -68,7 +95,7 @@
           <mat-form-field>
             <mat-label>Bairro:</mat-label>
             <input type="text" name="bairro" formControlName="bairro" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.bairro.errors?.required">
               Bairro é <strong>obrigatório</strong>
             </mat-error>
           </mat-form-field>
@@ -80,7 +107,7 @@
           <mat-form-field>
             <mat-label>Logradouro:</mat-label>
             <input type="text" name="logradouro" formControlName="logradouro" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.logradouro.errors?.required">
               Logradouro é <strong>obrigatório</strong>
             </mat-error>
           </mat-form-field>
@@ -90,7 +117,7 @@
           <mat-form-field>
             <mat-label>Número:</mat-label>
             <input type="text" name="numero" formControlName="numero" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.numero.errors?.required">
               Número é <strong>obrigatório</strong>
             </mat-error>
           </mat-form-field>
@@ -101,7 +128,7 @@
         <mat-form-field>
           <mat-label>Complemento:</mat-label>
           <input type="text" name="complemento" formControlName="complemento" autocomplete="off" matInput>
-          <mat-error *ngIf="">
+          <mat-error *ngIf="signupFormControl.controls.complemento.errors?.required">
             Complemento é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
@@ -112,7 +139,7 @@
           <mat-form-field>
             <mat-label>Telefone 1:</mat-label>
             <input type="text" name="telefone1" formControlName="telefone1" autocomplete="off" matInput>
-            <mat-error *ngIf="">
+            <mat-error *ngIf="signupFormControl.controls.telefone1.errors?.required">
               Telefone 1 é <strong>obrigatório</strong>
             </mat-error>
           </mat-form-field>
@@ -122,9 +149,6 @@
           <mat-form-field>
             <mat-label>Telefone 2:</mat-label>
             <input type="text" name="telefone2" formControlName="telefone2" autocomplete="off" matInput>
-            <mat-error *ngIf="">
-              Telefone 2 é <strong>obrigatório</strong>
-            </mat-error>
           </mat-form-field>
         </p>
       </div>
@@ -133,9 +157,6 @@
         <mat-form-field>
           <mat-label>Telefone 3:</mat-label>
           <input type="text" name="telefone3" formControlName="telefone3" autocomplete="off" matInput>
-          <mat-error *ngIf="">
-            Telefone 3 é <strong>obrigatório</strong>
-          </mat-error>
         </mat-form-field>
       </p>
 
@@ -155,9 +176,8 @@
             </mat-option>
           </mat-select>
          
-          <mat-error *ngIf="">You must make a selection</mat-error>
-          <mat-error *ngIf="">
-            Your selection is invalid
+          <mat-error *ngIf="signupFormControl.controls.estadoId.errors?.required">
+            Estado é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
 
@@ -172,20 +192,30 @@
             </mat-option>
           </mat-select>
           
-          <mat-error *ngIf="">You must make a selection</mat-error>
-          <mat-error *ngIf="">
-            Your selection is invalid
+          <mat-error *ngIf="signupFormControl.controls.cidadeId.errors?.required">
+            Cidade é <strong>obrigatório</strong>
           </mat-error>
         </mat-form-field>
       </div>
 
       <div class="btn-action">
         <p>
-          <button mat-button class="btn-cadastro">Cadastrar-se</button>
+          <button 
+            mat-button 
+            class="btn-cadastro"
+            [disabled]="signupFormControl.invalid"
+          >Cadastrar-se</button>
+          <mat-error *ngIf="signupFormControl.invalid">
+            Preencha todos os campos obrigatórios
+          </mat-error>
         </p>
   
         <p>
-          <button mat-button class="btn-cancelar">Cancelar</button>
+          <button 
+            mat-button 
+            class="btn-cancelar"
+            (click)="cancelar()"
+          >Cancelar</button>
         </p>
       </div>
     </form>

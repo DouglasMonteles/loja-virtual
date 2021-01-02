@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SigupPageRoutingModule } from './sigup-page-routing.module';
-import { SigupPageComponent } from './sigup-page.component';
+import { SignupPageRoutingModule } from './signup-page-routing.module';
+import { SignupPageComponent } from './signup-page.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,11 +15,11 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
 import { RodapeModule } from 'src/app/components/rodape/rodape.module';
 
 @NgModule({
-  declarations: [SigupPageComponent],
+  declarations: [SignupPageComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SigupPageRoutingModule,
+    SignupPageRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -36,4 +36,4 @@ import { RodapeModule } from 'src/app/components/rodape/rodape.module';
     }
   ]
 })
-export class SigupPageModule { }
+export class SignupPageModule { }
