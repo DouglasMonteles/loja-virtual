@@ -15,6 +15,5 @@ export interface ClienteCadastroModel {
   telefone2?: string;
   telefone3?: string;
   
-  estadoId: number;
   cidadeId: number;
 }

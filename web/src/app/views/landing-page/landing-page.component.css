@@ -18,20 +18,21 @@
   background-color: var(--secondary-color);
 }
 
-div {
+#landing-page div {
   line-height: 100px;
 }
 
-div h1 {
+#landing-page div h1 {
   font-size: 74px;
+  color: var(--text-color);
 }
 
-div p {
+#landing-page div p {
   font-size: 20px;
   color: var(--text-color)
 }
 
-img {
+#landing-page img {
   width: 450px;
   height: 500px;
 }
@@ -42,7 +43,7 @@ img {
     align-items: center;
   }
 
-  img {
+  #landing-page img {
     width: 280px;
     height: 280px;
   }

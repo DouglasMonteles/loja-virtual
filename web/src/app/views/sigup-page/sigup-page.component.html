@@ -132,7 +132,7 @@
       <p>
         <mat-form-field>
           <mat-label>Telefone 3:</mat-label>
-          <input type="text" name="telefone1" formControlName="telefone3" autocomplete="off" matInput>
+          <input type="text" name="telefone3" formControlName="telefone3" autocomplete="off" matInput>
           <mat-error *ngIf="">
             Telefone 3 é <strong>obrigatório</strong>
           </mat-error>
@@ -142,9 +142,17 @@
       <div class="row">
         <mat-form-field appearance="fill">
           <mat-label>Escolha um estado</mat-label>
-          <mat-select name="estadoId" formControlName="estadoId">
-            <mat-option value="1">Distrito Federal</mat-option>
-            <mat-option value="2">Maranhão</mat-option>
+          <mat-select 
+            name="estadoId" 
+            formControlName="estadoId"
+            (selectionChange)="updateCidades()"
+          >
+            <mat-option 
+              *ngFor="let estado of estados" 
+              [value]="estado.id"
+            >
+              {{estado.nome}}
+            </mat-option>
           </mat-select>
          
           <mat-error *ngIf="">You must make a selection</mat-error>
@@ -155,9 +163,13 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Escolha uma cidade</mat-label>
-          <mat-select [disabled]="true" name="cidadeId" formControlName="cidadeId">
-            <mat-option value="1">Brasília</mat-option>
-            <mat-option value="2">São Luís</mat-option>
+          <mat-select name="cidadeId" formControlName="cidadeId">
+            <mat-option
+              *ngFor="let cidade of cidades"
+              [value]="cidade.id"
+            >
+              {{cidade.nome}}
+            </mat-option>
           </mat-select>
           
           <mat-error *ngIf="">You must make a selection</mat-error>
