@@ -6,6 +6,8 @@ import { CidadeModel } from 'src/app/models/cidade.model';
 import { EstadoService } from 'src/app/services/estado.service';
 import { CidadeService } from 'src/app/services/cidade.service';
 import { Router } from '@angular/router';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { HandleMessageService } from 'src/app/services/handle-message.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -42,6 +44,8 @@ export class SignupPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private estadoService: EstadoService,
     private cidadeService: CidadeService,
+    private clienteService: ClienteService,
+    private message: HandleMessageService,
     private router: Router,
   ) { 
     this.signupFormControl = this.formBuilder.group({
@@ -152,7 +156,12 @@ export class SignupPageComponent implements OnInit {
   }
 
   sigupUser(): void {
-    console.log(this.signupFormControl.value);
+    this.clienteService.insert(this.signupFormControl.value).subscribe({
+      next: () => {
+        this.message.showMessage('Cliente cadastrado com sucesso!');
+        this.router.navigateByUrl('/products-page');
+      }
+    });
   }
 
   cancelar(): void {

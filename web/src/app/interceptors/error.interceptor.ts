@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { StorageService } from '../services/storage.service';
 import { catchError } from 'rxjs/operators';
 import { HandleMessageService } from '../services/handle-message.service';
+import { FieldMessage } from '../models/field-message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.handle403();
       break;
 
+      case 422: 
+        this.handle422(data);
+      break;
+
       default: 
         this.handleDefaultError(data);
     }
@@ -59,8 +64,22 @@ export class ErrorInterceptor implements HttpInterceptor {
     this.storage.setLocalUser(null);
   }
 
+  handle422(data): void {
+    this.message.showMessage(this.handleListOfErrors(data.error.errors), true, 30000);
+  }
+
   handleDefaultError(data): void {
     this.message.showMessage(data.error.message, true);
+  }
+
+  private handleListOfErrors(messages: FieldMessage[]): string {
+    let message = '';
+
+    for (let i = 0; i < messages.length; i++) {
+      message += `${messages[i].fieldName}: ${messages[i].message} / `;
+    }
+
+    return message;
   }
 
 }

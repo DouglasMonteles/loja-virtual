@@ -8,9 +8,9 @@ export class HandleMessageService {
 
   constructor(private snack: MatSnackBar) { }
 
-  showMessage(message: string, isError: boolean = false): void {
+  showMessage(message: string, isError: boolean = false, time: number = 5000): void {
     this.snack.open(message, 'X', {
-      duration: 5000,
+      duration: time,
       horizontalPosition: 'right',
       verticalPosition: 'top',
       panelClass: (isError) ? ['msg-error'] : ['msg-success'], 
