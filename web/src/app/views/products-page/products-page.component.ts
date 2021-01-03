@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ProductModel } from 'src/app/models/product.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoryModel } from 'src/app/models/category.model';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ProductService } from 'src/app/services/product.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products-page',
@@ -15,46 +17,14 @@ export class ProductsPageComponent implements OnInit {
 
   categories: CategoryModel[];
 
-  products: ProductModel[] = [
-    {
-      id: 1,
-      name: 'Computador',
-      price: 2000.00,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    },
-    {
-      id: 2,
-      name: 'Computador',
-      price: 2000.00,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    },
-    {
-      id: 3,
-      name: 'Computador',
-      price: 2000.00,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    },
-    {
-      id: 4,
-      name: 'Computador',
-      price: 2000.00,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    },
-    {
-      id: 5,
-      name: 'Computador',
-      price: 2000.00,
-      imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    },
-  ];
+  products: ProductModel[];
 
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute,
     private categoriaService: CategoriaService,
     private handleMessage: HandleMessageService,
     private auth: AuthenticationService,
-  ) {}
+    private productService: ProductService,
+  ) { }
 
   ngOnInit(): void {
     this.handleRefreshToken();
@@ -81,8 +51,21 @@ export class ProductsPageComponent implements OnInit {
     });
   }
 
-  handleProductByCategory(id: number): void {
-    console.log('Id da categoria: ' + id);
+  handleProductByCategory(event: EventEmitter<MatTabChangeEvent>): void {
+    const categoriaId = (event['index'] + 1);
+    this.productService.findByCategoria(categoriaId).subscribe({
+      next: (data) => {
+        this.products = data['content'];
+        this.handleProductImg();
+        console.log(this.products)
+      }
+    });
+  }
+
+  handleProductImg() {
+    this.products.forEach(product => {
+      product.imgPath = (product.imgPath === null) ? null : `${environment.baseImageURL}/produtos/picture/${product.imgPath}`;
+    });
   }
 
 }

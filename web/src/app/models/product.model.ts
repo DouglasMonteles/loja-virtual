@@ -1,6 +1,6 @@
 export interface ProductModel {
   id: number;
-  name: string;
-  price: number;
-  imageUrl?: string;
+  nome: string;
+  preco: number;
+  imgPath?: string;
 }

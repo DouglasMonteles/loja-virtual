@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+import { registerLocaleData } from '@angular/common';
+import LOCALE_BR from '@angular/common/locales/pt';
+
+registerLocaleData(LOCALE_BR);
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
     JwtModule,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     ErrorInterceptorProvider,
     AuthInterceptorProvider,
     MenuComponent,

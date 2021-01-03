@@ -11,6 +11,7 @@ public class ProdutoDTO implements Serializable {
 	private Long id;
 	private String nome;
 	private Double preco;
+	private String imgPath;
 	
 	public ProdutoDTO() {}
 	
@@ -19,6 +20,7 @@ public class ProdutoDTO implements Serializable {
 		this.id = produto.getId();
 		this.nome = produto.getNome();
 		this.preco = produto.getPreco();
+		this.imgPath = produto.getImgPath();
 	}
 
 	public Long getId() {
@@ -43,6 +45,14 @@ public class ProdutoDTO implements Serializable {
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 }

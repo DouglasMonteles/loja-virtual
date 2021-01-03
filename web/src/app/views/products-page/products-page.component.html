@@ -1,11 +1,13 @@
 <app-menu></app-menu>
 
 <main>
-  <mat-tab-group mat-align-tabs="center">
+  <mat-tab-group 
+    mat-align-tabs="center" 
+    (selectedTabChange)="handleProductByCategory($event)"
+  >
     <mat-tab 
       *ngFor="let category of categories"
       [label]="category.nome"
-      (click)="handleProductByCategory(category.id)"
     >
       <div id="card-grid">
         <app-card-product 
