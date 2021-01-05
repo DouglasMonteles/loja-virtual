@@ -13,6 +13,11 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
+  findById(id: number): Observable<ProductModel> {
+    const path = `${environment.baseURL}/produtos/${id}`;
+    return this.http.get<ProductModel>(path);
+  }
+
   findByCategoria(categoriaId: number): Observable<ProductModel[]> {
     const path = `${environment.baseURL}/produtos/?categorias=${categoriaId}`;
     return this.http.get<ProductModel[]>(path);

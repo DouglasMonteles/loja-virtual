@@ -14,3 +14,11 @@
   align-items: center;
   gap: 10px;
 }
+
+#product-detail img {
+  max-width: 500px;
+}
+
+#product-detail mat-card {
+  margin: 10px 20px;
+}

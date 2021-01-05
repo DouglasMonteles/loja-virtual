@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/models/product.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-detail',
@@ -10,17 +12,34 @@ import { Router } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
 
   product: ProductModel = {
-    id: 0,
-    nome: 'Teste',
-    preco: 20.00,
+    id: null,
+    nome: '',
+    preco: null,
     imgPath: null,
   }
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private productService: ProductService,
   ) { }
 
   ngOnInit(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.productService.findById(id).subscribe({
+      next: (data) => {
+        this.product = data;
+        this.handleProductImg();
+      }
+    });
+  }
+
+  handleProductImg() {
+    if (this.product.imgPath !== null) {
+      this.product.imgPath = `${environment.baseImageURL}/produtos/picture/${this.product.imgPath}`;
+    } else {
+      this.product.imgPath = null;
+    }
   }
 
   voltar(): void {

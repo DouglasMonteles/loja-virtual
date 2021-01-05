@@ -19,7 +19,9 @@ export class CardProductComponent implements OnInit {
   }
 
   productDetail(id: number) {
-    this.router.navigate(['/product-detail']);
+    this.router.navigate(['/product-detail', { 
+      id,
+    }]);
   }
 
 }
