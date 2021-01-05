@@ -57,7 +57,6 @@ export class ProductsPageComponent implements OnInit {
       next: (data) => {
         this.products = data['content'];
         this.handleProductImg();
-        console.log(this.products)
       }
     });
   }

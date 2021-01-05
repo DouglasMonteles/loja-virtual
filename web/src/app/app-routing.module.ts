@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'signup-page', 
     loadChildren: () => import('./views/signup-page/signup-page.module').then(m => m.SignupPageModule) 
   },
+  { 
+    path: 'product-detail', 
+    loadChildren: () => import('./views/product-detail/product-detail.module').then(m => m.ProductDetailModule) 
+  },
   {
     path: '',
     redirectTo: 'landing-page',
