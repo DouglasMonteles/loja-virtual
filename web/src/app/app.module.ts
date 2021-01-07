@@ -17,6 +17,7 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { registerLocaleData } from '@angular/common';
 import LOCALE_BR from '@angular/common/locales/pt';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
 
 registerLocaleData(LOCALE_BR);
 
@@ -40,6 +41,7 @@ registerLocaleData(LOCALE_BR);
     RodapeComponent,
     LoginComponent,
     CardProductComponent,
+    CartItemComponent,
   ],
   bootstrap: [AppComponent]
 })

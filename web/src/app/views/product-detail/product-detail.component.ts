@@ -3,6 +3,8 @@ import { ProductModel } from 'src/app/models/product.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { environment } from 'src/environments/environment';
+import { CartService } from 'src/app/services/cart.service';
+import { HandleMessageService } from 'src/app/services/handle-message.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,6 +24,8 @@ export class ProductDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private cartService: CartService,
+    private message: HandleMessageService,
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +44,14 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.product.imgPath = null;
     }
+  }
+
+  addToCart() {
+    if (this.product.id > 0) {
+      this.cartService.addProduto(this.product);
+      this.message.showMessage(`Produto ${this.product.nome} foi adicionado ao carrinho`);
+    }
+    this.router.navigateByUrl('/products-page');
   }
 
   voltar(): void {

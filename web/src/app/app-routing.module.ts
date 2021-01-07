@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'product-detail', 
     loadChildren: () => import('./views/product-detail/product-detail.module').then(m => m.ProductDetailModule) 
   },
+  { 
+    path: 'product-cart-page', 
+    loadChildren: () => import('./views/product-cart-page/product-cart-page.module').then(m => m.ProductCartPageModule) 
+  },
   {
     path: '',
     redirectTo: 'landing-page',

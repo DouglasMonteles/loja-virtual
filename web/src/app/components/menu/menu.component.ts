@@ -24,6 +24,10 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  handleCartPage() {
+    this.router.navigateByUrl('/product-cart-page');
+  }
+
   handleLogin() : void {
     this.loginComponent.openDialog();
   }
