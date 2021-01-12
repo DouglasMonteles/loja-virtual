@@ -35,4 +35,55 @@ export class CartService {
     return cart;
   }
 
+  removeProduto(produto: ProductModel): CartModel {
+    const cart = this.getCart();
+    const index = cart.items.findIndex(item => item.produto.id === produto.id);
+
+    if (index !== -1) {
+      cart.items.splice(index, 1); // caso tenha o produto na lista, ele será cortado, ou seja, removido
+    }
+    
+    this.storage.setCart(cart);
+    return cart;
+  }
+
+  increaseQuatity(produto: ProductModel): CartModel {
+    const cart = this.getCart();
+    const index = cart.items.findIndex(item => item.produto.id === produto.id);
+
+    if (index !== -1) {
+      cart.items[index].quatidade++;
+    }
+
+    this.storage.setCart(cart);
+    return cart;
+  }
+
+  decreaseQuantity(produto: ProductModel): CartModel {
+    let cart = this.getCart();
+    const index = cart.items.findIndex(item => item.produto.id === produto.id);
+
+    if (index !== -1) {
+      cart.items[index].quatidade--;
+
+      if (cart.items[index].quatidade < 1) {
+        cart = this.removeProduto(produto);
+      }
+    }
+
+    this.storage.setCart(cart);
+    return cart;
+  }
+
+  total(): number {
+    const cart = this.getCart();
+    let total = 0;
+
+    for (let i = 0; i < cart.items.length; i++) {
+      total += (cart.items[i].produto.preco * cart.items[i].quatidade);
+    }
+
+    return total;
+  }
+
 }

@@ -7,19 +7,19 @@
   </div>
 
   <div class="btn-qtd">
-    <button mat-mini-fab color="primary" >
+    <button (click)="increaseQuatity(item.produto)" mat-mini-fab color="primary" >
       <mat-icon>add</mat-icon>
     </button>
 
     <span>{{item.quatidade}}</span>
 
-    <button mat-mini-fab color="primary">
+    <button (click)="decreaseQuantity(item.produto)" mat-mini-fab color="primary">
       <mat-icon>remove</mat-icon>
     </button>
   </div>
 
   <div class="remove-item">
-    <button (click)="deleteProduct()" mat-raised-button color="warn">
+    <button (click)="removeItem(item.produto)" mat-raised-button color="warn">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

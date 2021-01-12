@@ -22,6 +22,7 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.itensNoCarrinho = this.storage.getCart().items.length;
   }
 
   handleCartPage() {

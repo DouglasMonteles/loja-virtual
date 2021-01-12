@@ -43,6 +43,11 @@
   margin-bottom: 10px;
 }
 
+.cart-empty {
+  color: rgb(180, 4, 4);
+  text-align: center;
+}
+
 @media (max-width: 760px) {
   .cart-itens-container {
     width: 90vw;
