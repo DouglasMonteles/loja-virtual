@@ -31,6 +31,7 @@
 
         <button 
           *ngIf="!isEmpty()"
+          (click)="checkout()"
           mat-raised-button 
           color="warn"
         >Finalizar Pedido</button>

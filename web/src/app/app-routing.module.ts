@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'product-cart-page', 
     loadChildren: () => import('./views/product-cart-page/product-cart-page.module').then(m => m.ProductCartPageModule) 
   },
+  { 
+    path: 'order-confirmation', 
+    loadChildren: () => import('./views/order-confirmation/order-confirmation.module').then(m => m.OrderConfirmationModule) 
+  },
   {
     path: '',
     redirectTo: 'landing-page',

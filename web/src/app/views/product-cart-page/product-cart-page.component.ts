@@ -40,5 +40,8 @@ export class ProductCartPageComponent implements OnInit {
     return (this.items.length === 0);
   }
 
+  checkout(): void {
+    this.router.navigateByUrl('/order-confirmation');
+  }
 
 }

@@ -1,0 +1,61 @@
+<app-menu></app-menu>
+
+<main>
+  <div id="order-confirmation" class="mat-elevation-z4">
+    <h1>Checkup das Informações</h1>
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Escolha do Endereço</ng-template>
+          <h2>Selecione um endereço:</h2>
+          <div class="row">
+            <button 
+              *ngFor="let end of enderecos"
+              class="mat-elevation-z6 btn-endereco"
+              mat-raised-button
+              matStepperNext
+            >
+              <h4>{{end.logradouro}}, <br/>Número: {{end.numero}}</h4>
+              <p>{{end.complemento}}, {{end.bairro}}</p>
+              <p>CEP: {{end.cep}}</p>
+              <p>{{end.cidade.nome}}, {{end.cidade.estado.nome}}</p>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <button mat-raised-button matStepperNext color="warn">Próximo</button>
+            <button mat-raised-button matStepperPrevious>Voltar</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Confirmação dos Dados</ng-template>
+        <p>Dados abaixo</p>
+        <div class="row">
+          <button mat-raised-button matStepperPrevious>Voltar</button>
+          <button mat-raised-button matStepperNext color="warn">Enviar Pedido</button>
+          <button mat-raised-button (click)="stepper.reset()">Limpar formulário</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Pedido Enviado</ng-template>
+        <p class="order-confirmated">Pedido enviado! Aguarde a entrega e obrigado pela preferência</p>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</main>
+
+<app-rodape></app-rodape>
