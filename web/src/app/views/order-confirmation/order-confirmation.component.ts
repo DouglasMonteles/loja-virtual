@@ -4,6 +4,8 @@ import { EnderecoModel } from 'src/app/models/endereco.model';
 import { StorageService } from 'src/app/services/storage.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
+import { PedidoModel } from 'src/app/models/pedido.model';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -14,15 +16,17 @@ export class OrderConfirmationComponent implements OnInit {
 
   isEditable: boolean = true;
 
-  firstFormGroup: FormGroup;
+  enderecoFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
   enderecos: EnderecoModel[];
+  pedido: PedidoModel;
   
   constructor(
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private storage: StorageService,
     private clienteService: ClienteService,
+    private cartService: CartService,
     private message: HandleMessageService,
   ) {}
 
@@ -32,8 +36,18 @@ export class OrderConfirmationComponent implements OnInit {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email).subscribe({
         next: (data) => {
-          console.log(data)
           this.enderecos = data['enderecos'];
+
+          const cart = this.cartService.getCart();
+
+          this.pedido = {
+            cliente: { id: data['id'], },
+            enderecoDeEntrega: null,
+            pagamento: null,
+            itens: cart.items.map(item => { 
+              return { quantidade: item.quatidade, produto: { id: item.produto.id } }; 
+            }),
+          };
         },
         error: (error) => {
           if (error.status === 403) {
@@ -45,13 +59,17 @@ export class OrderConfirmationComponent implements OnInit {
       this.message.showMessage('Sessão expirou! Faça login novamente.', true);
     }
 
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['']
-    });
-    this.secondFormGroup = this._formBuilder.group({
+    this.enderecoFormGroup = this.formBuilder.group({});
+    this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['']
     });
+  }
+
+  setEndereco(endereco: EnderecoModel): void {
+    this.pedido.enderecoDeEntrega = { 
+      id: endereco.id,
+    };
+    console.log(this.pedido)
   }
 
 }

@@ -4,13 +4,14 @@
   <div id="order-confirmation" class="mat-elevation-z4">
     <h1>Checkup das Informações</h1>
     <mat-horizontal-stepper linear #stepper>
-      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-        <form [formGroup]="firstFormGroup">
+      <mat-step [stepControl]="enderecoFormGroup" [editable]="isEditable">
+        <form [formGroup]="enderecoFormGroup">
           <ng-template matStepLabel>Escolha do Endereço</ng-template>
-          <h2>Selecione um endereço:</h2>
+          <h2>Clique em um endereço:</h2>
           <div class="row">
             <button 
               *ngFor="let end of enderecos"
+              (click)="setEndereco(end)"
               class="mat-elevation-z6 btn-endereco"
               mat-raised-button
               matStepperNext
