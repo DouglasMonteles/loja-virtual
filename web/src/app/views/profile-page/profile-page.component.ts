@@ -26,7 +26,7 @@ export class ProfilePageComponent implements OnInit {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email).subscribe({
         next: (data) => {
-          const { id, nome, email, imgPath } = data;
+          const { id, nome, email, imgPath } = data as ClienteModel;
           this.cliente = {
             id,
             nome,

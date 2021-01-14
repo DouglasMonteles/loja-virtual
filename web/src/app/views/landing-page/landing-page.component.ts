@@ -8,8 +8,22 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auth: AuthenticationService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.handleRefreshToken();
+  }
+
+  handleRefreshToken(): void {
+    this.auth.refreshToken().subscribe({
+      next: (data) => {
+        this.auth.successfullLogin(data.headers.get('Authorization'));
+      },
+
+      error: () => {}
+    });
+  }
 
 }

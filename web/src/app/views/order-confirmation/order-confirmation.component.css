@@ -45,3 +45,7 @@
 .btn-endereco p {
   width: 100%;
 }
+
+.btn-endereco:hover {
+  border: 2px solid var(--primary-color);
+}

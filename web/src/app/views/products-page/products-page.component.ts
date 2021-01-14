@@ -3,7 +3,6 @@ import { ProductModel } from 'src/app/models/product.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { CategoryModel } from 'src/app/models/category.model';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProductService } from 'src/app/services/product.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
@@ -22,23 +21,11 @@ export class ProductsPageComponent implements OnInit {
   constructor(
     private categoriaService: CategoriaService,
     private handleMessage: HandleMessageService,
-    private auth: AuthenticationService,
     private productService: ProductService,
   ) { }
 
   ngOnInit(): void {
-    this.handleRefreshToken();
     this.handleCategories();
-  }
-
-  handleRefreshToken(): void {
-    this.auth.refreshToken().subscribe({
-      next: (data) => {
-        this.auth.successfullLogin(data.headers.get('Authorization'));
-      },
-
-      error: () => {}
-    });
   }
 
   handleCategories(): void {

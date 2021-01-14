@@ -16,9 +16,9 @@ export class ClienteService {
     private storage: StorageService,
   ) {}
 
-  findByEmail(email: string): Observable<ClienteModel> {
+  findByEmail(email: string) {
     const path = `${environment.baseURL}/clientes/email?value=${email}`;
-    return this.http.get<ClienteModel>(path);
+    return this.http.get(path);
   }
 
   getClientImage(image: string): Observable<any> {
