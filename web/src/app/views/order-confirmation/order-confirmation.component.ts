@@ -6,6 +6,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { HandleMessageService } from 'src/app/services/handle-message.service';
 import { PedidoModel } from 'src/app/models/pedido.model';
 import { CartService } from 'src/app/services/cart.service';
+import { PedidoService } from 'src/app/services/pedido.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -35,6 +37,8 @@ export class OrderConfirmationComponent implements OnInit {
     private clienteService: ClienteService,
     private cartService: CartService,
     private message: HandleMessageService,
+    private pedidoService: PedidoService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -81,6 +85,8 @@ export class OrderConfirmationComponent implements OnInit {
     this.pedido.enderecoDeEntrega = {
       id: endereco.id,
     };
+
+    this.setPagamento();
   }
 
   setPagamento(): void {
@@ -95,7 +101,23 @@ export class OrderConfirmationComponent implements OnInit {
         numeroDeParcelas: this.pagamentoFormGroup.value.numeroDeParcelas,
       };
     }
-    console.log(this.pedido)
+  }
+
+  confirmarPedido(): void {
+    this.pedidoService.insert(this.pedido).subscribe({
+      next: (data) => {
+        this.cartService.createOrClearCart();
+        console.log(data.headers.get('location'));
+      },
+
+      error: (error) => {
+        console.log(error)
+        if (error.status === 403) {
+          this.message.showMessage('Sua sessão expirou! Faça login novamente!', true);
+          this.router.navigateByUrl('/products-page');
+        }
+      },
+    });
   }
 
 }

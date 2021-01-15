@@ -30,7 +30,7 @@
               name="pagamento" 
               formControlName="pagamento"
             >
-              <mat-radio-button value="pagamentoComCartao">Cartão</mat-radio-button>
+              <mat-radio-button [checked]="true" value="pagamentoComCartao">Cartão</mat-radio-button>
               <mat-radio-button value="pagamentoComBoleto">Boleto</mat-radio-button>
             </mat-radio-group>
           </div>
@@ -59,7 +59,12 @@
         <p>Dados abaixo</p>
         <div class="row">
           <button mat-raised-button matStepperPrevious>Voltar</button>
-          <button mat-raised-button matStepperNext color="warn">Enviar Pedido</button>
+          <button 
+            (click)="confirmarPedido()"
+            mat-raised-button 
+            matStepperNext 
+            color="warn"
+          >Enviar Pedido</button>
           <button mat-raised-button (click)="stepper.reset()">Limpar formulário</button>
         </div>
       </mat-step>
