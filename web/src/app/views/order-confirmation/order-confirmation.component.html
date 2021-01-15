@@ -6,17 +6,12 @@
     <mat-horizontal-stepper linear #stepper>
       <mat-step [stepControl]="enderecoFormGroup" [editable]="isEditable">
         <form [formGroup]="enderecoFormGroup">
-          <ng-template matStepLabel>Escolha do Endereço</ng-template>
+          <ng-template matStepLabel>Endereço</ng-template>
           <h2>Clique em um endereço:</h2>
           <div class="row">
-            <button 
-              *ngFor="let end of enderecos"
-              (click)="setEndereco(end)"
-              class="mat-elevation-z6 btn-endereco"
-              mat-raised-button
-              matStepperNext
-            >
-              <h4>{{end.logradouro}}, <br/>Número: {{end.numero}}</h4>
+            <button *ngFor="let end of enderecos" (click)="setEndereco(end)" class="mat-elevation-z6 btn-endereco"
+              mat-raised-button matStepperNext>
+              <h4>{{end.logradouro}}, <br />Número: {{end.numero}}</h4>
               <p>{{end.complemento}}, {{end.bairro}}</p>
               <p>CEP: {{end.cep}}</p>
               <p>{{end.cidade.nome}}, {{end.cidade.estado.nome}}</p>
@@ -25,15 +20,33 @@
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-step [stepControl]="pagamentoFormGroup" [editable]="isEditable">
+        <form [formGroup]="pagamentoFormGroup">
+          <ng-template matStepLabel>Pagamento</ng-template>
+          <h2>Escolha a forma de pagamento:</h2>
           <div class="row">
-            <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+            <mat-radio-group 
+              aria-label="Selecione o tipo de pagamento" 
+              name="pagamento" 
+              formControlName="pagamento"
+            >
+              <mat-radio-button value="pagamentoComCartao">Cartão</mat-radio-button>
+              <mat-radio-button value="pagamentoComBoleto">Boleto</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="row" *ngIf="pagamentoFormGroup.controls?.pagamento.value === 'pagamentoComCartao'">
+            <mat-form-field appearance="fill">
+              <mat-label>Número de parcelas</mat-label>
+              <mat-select name="numeroDeParcelas" formControlName="numeroDeParcelas">
+                <mat-option 
+                  *ngFor="let qtdParcela of parcelas" 
+                  [value]="qtdParcela"
+                >{{qtdParcela}}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
+
           <div class="row">
             <button mat-raised-button matStepperNext color="warn">Próximo</button>
             <button mat-raised-button matStepperPrevious>Voltar</button>

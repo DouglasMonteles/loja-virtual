@@ -1,4 +1,4 @@
 export interface PagamentoModel {
-  numeroDeParcelas: number;
   "@type": string;
+  numeroDeParcelas?: number;
 }
