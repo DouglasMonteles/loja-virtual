@@ -18,6 +18,10 @@ main h2 {
   padding: 30px;
 }
 
+.loading {
+  margin: 10% auto;
+}
+
 @media (max-width: 680px) {
   main {
     width: 90vw;

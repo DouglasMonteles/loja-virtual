@@ -17,6 +17,14 @@
       </div>
     </mat-tab>
   </mat-tab-group>
+
+  <mat-progress-spinner
+      *ngIf="!products"
+      color="warn"
+      mode="indeterminate"
+      value="50"
+      class="loading"
+    ></mat-progress-spinner>
 </main>
 
 <app-rodape></app-rodape>
