@@ -8,6 +8,7 @@ import { PedidoModel } from 'src/app/models/pedido.model';
 import { CartService } from 'src/app/services/cart.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { Router } from '@angular/router';
+import { ClienteModel } from 'src/app/models/cliente.model';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class OrderConfirmationComponent implements OnInit {
 
-  isEditable: boolean = true;
+  isEditable: boolean = false;
 
   enderecoFormGroup: FormGroup;
   pagamentoFormGroup: FormGroup;
@@ -28,14 +29,18 @@ export class OrderConfirmationComponent implements OnInit {
     itens: null,
     pagamento: null,
   };
+  cliente: ClienteModel;
+  endereco: EnderecoModel;
 
   parcelas: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  codPedido: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private storage: StorageService,
     private clienteService: ClienteService,
-    private cartService: CartService,
+    public cartService: CartService,
     private message: HandleMessageService,
     private pedidoService: PedidoService,
     private router: Router,
@@ -47,6 +52,7 @@ export class OrderConfirmationComponent implements OnInit {
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email).subscribe({
         next: (data) => {
+          this.cliente = data as ClienteModel;
           this.enderecos = data['enderecos'];
 
           const cart = this.cartService.getCart();
@@ -82,6 +88,7 @@ export class OrderConfirmationComponent implements OnInit {
   }
 
   setEndereco(endereco: EnderecoModel): void {
+    this.endereco = endereco;
     this.pedido.enderecoDeEntrega = {
       id: endereco.id,
     };
@@ -105,19 +112,38 @@ export class OrderConfirmationComponent implements OnInit {
 
   confirmarPedido(): void {
     this.pedidoService.insert(this.pedido).subscribe({
-      next: (data) => {
+      next: async (data) => {
         this.cartService.createOrClearCart();
-        console.log(data.headers.get('location'));
+        this.codPedido = await this.extractIdFromLocation(data.headers.get('location'));
+        setTimeout(() => {
+          this.router.navigateByUrl('/products-page');
+        }, 10000);
       },
 
       error: (error) => {
-        console.log(error)
         if (error.status === 403) {
           this.message.showMessage('Sua sessão expirou! Faça login novamente!', true);
           this.router.navigateByUrl('/products-page');
+        } else {
+          this.message.showDefaultMessage();
         }
       },
     });
+  }
+
+  private extractIdFromLocation(location: string): number {
+    const index = location.lastIndexOf('/');
+    return parseInt(location.substring(index+1, location.length));
+  }
+
+  total(): number {
+    let soma = 0;
+
+    for (let i = 0; i < this.cartService.getCart().items.length; i++) {
+      soma += (this.cartService.getCart().items[i].quatidade * this.cartService.getCart().items[0].produto.preco);
+    }
+
+    return soma;
   }
 
 }

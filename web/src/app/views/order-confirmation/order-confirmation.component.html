@@ -3,14 +3,18 @@
 <main>
   <div id="order-confirmation" class="mat-elevation-z4">
     <h1>Checkup das Informações</h1>
-    <mat-horizontal-stepper linear #stepper>
+    <mat-horizontal-stepper linear="true" #stepper>
       <mat-step [stepControl]="enderecoFormGroup" [editable]="isEditable">
         <form [formGroup]="enderecoFormGroup">
           <ng-template matStepLabel>Endereço</ng-template>
           <h2>Clique em um endereço:</h2>
           <div class="row">
-            <button *ngFor="let end of enderecos" (click)="setEndereco(end)" class="mat-elevation-z6 btn-endereco"
-              mat-raised-button matStepperNext>
+            <button 
+              *ngFor="let end of enderecos" 
+              (click)="setEndereco(end)" 
+              class="mat-elevation-z6 btn-endereco"
+              mat-raised-button matStepperNext
+            >
               <h4>{{end.logradouro}}, <br />Número: {{end.numero}}</h4>
               <p>{{end.complemento}}, {{end.bairro}}</p>
               <p>CEP: {{end.cep}}</p>
@@ -54,12 +58,42 @@
         </form>
       </mat-step>
 
-      <mat-step>
+      <mat-step [editable]="isEditable">
         <ng-template matStepLabel>Confirmação dos Dados</ng-template>
-        <p>Dados abaixo</p>
+        
+        <mat-card>
+          <h2>Itens do pedido</h2>
+          <p *ngFor="let item of cartService.getCart().items">
+            Nome: {{item.produto.nome}} | Preço: {{item.produto.preco | currency: 'BRL'}} | Qtd. {{item.quatidade}}
+          </p>
+          Total: {{total() | currency: 'BRL'}}
+        </mat-card>
+
+        <mat-card>
+          <h2>Dados do cliente</h2>
+          <p>Nome: {{cliente?.nome}}</p>
+          <p>Email: {{cliente?.email}}</p>
+        </mat-card>
+
+        <mat-card>
+          <h2>Dados do Endereço</h2>
+          <h4>{{endereco?.logradouro}}, <br />Número: {{endereco?.numero}}</h4>
+          <p>{{endereco?.complemento}}, {{endereco?.bairro}}</p>
+          <p>CEP: {{endereco?.cep}}</p>
+          <p>{{endereco?.cidade.nome}}, {{endereco?.cidade.estado.nome}}</p>
+        </mat-card>
+
+        <mat-card>
+          <h2>Pagamento</h2>
+          <p *ngIf="pedido.pagamento">
+            {{ (pedido.pagamento["@type"] === 'pagamentoComCartao') ? 'Pagamento com Cartão | Parcelas: ' + pedido.pagamento.numeroDeParcelas : 'Pagamento com Boleto' }}
+          </p>
+        </mat-card>
+
         <div class="row">
           <button mat-raised-button matStepperPrevious>Voltar</button>
-          <button 
+          <button
+            [disabled]="pedido === null || pedido.pagamento === null"
             (click)="confirmarPedido()"
             mat-raised-button 
             matStepperNext 
@@ -69,9 +103,11 @@
         </div>
       </mat-step>
 
-      <mat-step>
+      <mat-step [editable]="false">
         <ng-template matStepLabel>Pedido Enviado</ng-template>
-        <p class="order-confirmated">Pedido enviado! Aguarde a entrega e obrigado pela preferência</p>
+        <p *ngIf="!codPedido">Registrando pedido, aguarde...</p>
+        <p *ngIf="codPedido" class="order-confirmated">Pedido enviado! Aguarde a entrega e obrigado pela preferência</p>
+        <p *ngIf="codPedido">Uma mensagem de confirmação foi enviada para o seu email cadastrado.</p>
       </mat-step>
     </mat-horizontal-stepper>
   </div>

@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { CartItemModule } from 'src/app/components/cart-item/cart-item.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [OrderConfirmationComponent],
@@ -27,6 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatRadioModule,
     MatSelectModule,
+    CartItemModule,
+    MatCardModule,
   ],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
