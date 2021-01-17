@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
   baseURL: 'http://localhost:8080',
   baseImageURL: 'https://loja-virtual-monteles.herokuapp.com',
+  production: false,
 };
 
 /*

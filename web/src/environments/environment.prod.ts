@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  baseURL: 'https://loja-virtual-monteles.herokuapp.com',
+  baseImageURL: 'https://loja-virtual-monteles.herokuapp.com',
+  production: true,
 };
