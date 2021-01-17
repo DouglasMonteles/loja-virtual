@@ -17,14 +17,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Passou no interceptor de erro');
     return next.handle(req).pipe(
       catchError(data => this.handleError(data)),
     );
   }
 
   handleError(data) {
-    console.log(data);
     let intercepError = data;
 
     if (intercepError.error) {

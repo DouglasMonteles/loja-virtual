@@ -18,8 +18,8 @@ export class ProductService {
     return this.http.get<ProductModel>(path);
   }
 
-  findByCategoria(categoriaId: number): Observable<ProductModel[]> {
-    const path = `${environment.baseURL}/produtos/?categorias=${categoriaId}`;
+  findByCategoria(categoriaId: number, page: number = 0, linesPerPage: number = 10, ): Observable<ProductModel[]> {
+    const path = `${environment.baseURL}/produtos/?categorias=${categoriaId}&page=${page}&linesPerPage=${linesPerPage}`;
     return this.http.get<ProductModel[]>(path);
   }
 

@@ -16,15 +16,24 @@
         ></app-card-product>  
       </div>
     </mat-tab>
+
+    
   </mat-tab-group>
 
+  <mat-paginator 
+    [length]="products.length"
+    [pageSize]="linesPerPage"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePageChange($event)"
+  ></mat-paginator>
+
   <mat-progress-spinner
-      *ngIf="!products"
-      color="warn"
-      mode="indeterminate"
-      value="50"
-      class="loading"
-    ></mat-progress-spinner>
+    *ngIf="!products"
+    color="warn"
+    mode="indeterminate"
+    value="50"
+    class="loading"
+  ></mat-progress-spinner>
 </main>
 
 <app-rodape></app-rodape>

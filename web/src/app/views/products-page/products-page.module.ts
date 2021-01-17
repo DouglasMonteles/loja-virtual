@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CardProductModule } from 'src/app/components/card-product/card-product.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     CardProductModule,
     MatProgressSpinnerModule,
-  ]
+    MatPaginatorModule,
+  ],
+  providers: []
 })
 export class ProductsPageModule { }
